@@ -1,18 +1,24 @@
 ﻿<!doctype html>
-<html lang="en" ng-app="myApp" ng-controller="MainController">
+<html >
 <head>
     <meta charset="utf-8">
     <title>My HTML File</title>
     <script src="./angular/angular.js"></script>
     <script src="./angular-external/angular-event-aggregator.js"></script>
+    <script src="./glyphHelper.js"></script>
+    <script src="./glyph.js"></script>
+    <script src="./gameContext.js"></script>
+    <script src="./alien.js"></script>
+    <script src="./laser.js"></script>
+    <script src="./shot.js"></script>
     <script src="./app.js"></script>
     <script src="./mainController.js"></script>
 </head>
-<body ng-keydown="onKeydown($event)" ng-keyup="onKeyup($event)">
+<body ng-keydown="onKeydown($event)" ng-keyup="onlKeyup($event)">
 <canvas id="canvas"  style="border: 1px gray solid; width: 100%; height: 90%"></canvas>
 
 
-<p>Nothing here {{greeting}}</p>
+<p lang="en" ng-app="myApp" ng-controller="MainController">Nothing here {{greeting}}</p>
 
 </body>
 </html>
