@@ -1,0 +1,21 @@
+﻿"use strict";
+
+function LaserBehaviour() {
+
+}
+
+LaserBehaviour.prototype.update = function (gameContext, laser, input) {
+
+    if (input.laser.dx) {
+        laser.x += input.laser.dx;
+    }
+
+    if (input.shot) {
+
+        if ((Date.now() - laser.lastShotTime) > 6000) {
+            gameContext.glyphsTree.shots.push(new Shot(gameContext, gameContext.glyphsTree.laser.x));
+            laser.lastShotTime = Date.now();
+        }
+    }
+
+}

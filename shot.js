@@ -16,27 +16,35 @@ function Shot(gameContext, x) {
     var ctx = gameContext.ctx;
     var glyphsTree = gameContext.glyphsTree;
 
-    this.renderObject = function (controlEvent) {
-        if (self.destroy) {
-            return;
-        }
+    this.handleInput = function (input) {
+
+    }
+
+    this.updateState = function () {
+
         self.y -= 2;
         if (self.y < 0)
             self.destroy = true;
 
+        gameContext.glyphsTree.aliens.some(function(alien) {
+            if (glyphHelper.macroCollision(self, alien)) {
+                alien.destroy = true;
+                self.destroy = true;
+                return true;
+            }
+        });
+    }
+
+    this.render = function () {
+
+        if (self.destroy) {
+            return;
+        }
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(self.x, self.y, self.width, self.height);
-        ctx.fillRect(self.x, self.y + self.height + 3, self.width, self.height);
+        //ctx.fillRect(self.x, self.y + self.height + 3, self.width, self.height);
 
-        for (var i = 0; i < gameContext.glyphsTree.aliens.length; i++) {
-            if (glyphHelper.macroCollision(self, gameContext.glyphsTree.aliens[i])) {
-                glyphsTree.aliens[i].destroy = true;
-                this.destroy = true;
-                break;
-
-            }
-
-        }
+        
     };
 }
 

@@ -8,8 +8,7 @@ function GameDataContext(ctx, canvasElement) {
     this.glyphsTree = {
         laser: null,
         shots: [],
-        aliens: []
+        aliens: [],
+        alienShots: []
     };
-
-    
 }

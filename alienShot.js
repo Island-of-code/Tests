@@ -1,24 +1,23 @@
 ﻿"use strict";
 
-Alien.width = 5;
-Alien.height = 10;
+AlienShot.width = 1;
+AlienShot.height = 10;
 
-Alien.prototype = Object.create(Glyph.prototype);
-Alien.behaviour = new AlienBehaviour();
+AlienShot.prototype = Object.create(Glyph.prototype);
 
-function Alien(gameContext, x) {
+function AlienShot(gameContext, x) {
     
     Glyph.call(this, gameContext);
     var self = this;
     this.x = x;
-    this.y = Alien.height;
-    this.width = Alien.width;
-    this.height = Alien.height;
-    this.lastShot = Date.now();
+    this.y = AlienShot.height;
+    this.width = AlienShot.width;
+    this.height = AlienShot.height;
+
     var ctx = this.gameContext.ctx;
     
     this.handleInput = function(input) {
-        Alien.behaviour.update(gameContext, self, input);
+        AlienShot.behaviour.update(gameContext, self, input);
     }
 
     this.updateState = function () {

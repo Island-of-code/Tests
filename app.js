@@ -6,6 +6,18 @@ myApp.controller("MainController",
 [
     "$scope", "eventAggregator", function($scope, eventAggregator) {
 
+    // A cross-browser requestAnimationFrame
+    var requestAnimFrame = (function(){
+        return window.requestAnimationFrame       ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            window.oRequestAnimationFrame      ||
+            window.msRequestAnimationFrame     ||
+            function(callback){
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
         window.onkeydown = function(event) {
             if (event.key === "ArrowRight") {
                 eventAggregator.trigger("rightDown.happens", { event: event });
@@ -35,64 +47,63 @@ myApp.controller("MainController",
 
         function Game(canvasElement, eventAggregator) {
 
-            var controlEvent = {
+           var input = {
                 laser: {}
             };
 
             var ctx = canvasElement.getContext("2d");
             var gameContext = new GameDataContext(ctx, canvasElement);
-            var gameLoopInterval = null;
             var glyphsTree = gameContext.glyphsTree;
-            var lastShotTime = new Date();
+            
 
             eventAggregator.on("rightDown.happens",
                 function() {
-                    controlEvent.rightDown = 1;
-                    controlEvent.laser.dx = 1;
+                    input.rightDown = 1;
+                    input.laser.dx = 1;
                 });
 
             eventAggregator.on("rightUp.happens",
                 function() {
-                    controlEvent.laser.dx = 0;
-                    controlEvent.rightDown = 0;
+                    input.laser.dx = 0;
+                    input.rightDown = 0;
 
-                    if (controlEvent.leftDown)
-                        controlEvent.laser.dx = -1;
+                    if (input.leftDown)
+                        input.laser.dx = -1;
                 });
 
             eventAggregator.on("leftDown.happens",
                 function() {
-                    controlEvent.laser.dx = -1;
-                    controlEvent.leftDown = 1;
+                    input.laser.dx = -1;
+                    input.leftDown = 1;
 
 
                 });
 
             eventAggregator.on("leftUp.happens",
                 function() {
-                    controlEvent.laser.dx = 0;
-                    controlEvent.leftDown = 0;
+                    input.laser.dx = 0;
+                    input.leftDown = 0;
                     
-                    if(controlEvent.rightDown)
-                        controlEvent.laser.dx = 1;
+                    if(input.rightDown)
+                        input.laser.dx = 1;
 
                 });
 
             eventAggregator.on("upUp.happens",
                 function() {
-                    controlEvent.shot = false;
+                    input.shot = false;
                 });
 
             eventAggregator.on("upDown.happens",
                 function() {
-                    controlEvent.shot = true;
+                    input.shot = true;
                 });
 
             this.run = function() {
 
                 addAliens(20);
                 glyphsTree.laser = new Laser(gameContext);
-                gameLoopInterval = setInterval(renderLoop, 30);
+                renderLoop();
             };
 
             function addAliens(count) {
@@ -104,45 +115,72 @@ myApp.controller("MainController",
                 }
             }
 
-            function renderAndClearGryphs(glyphs, controlEvent) {
+            function updateForGlyphArray(glyphs) {
 
                 var forDelete = [];
 
                 for (var i = 0; i < glyphs.length; i++) {
-
+                    
                     if (glyphs[i].destroy) {
                         forDelete.push(i);
                     } else {
-                        glyphs[i].renderObject(controlEvent);
-                    }
+                        glyphs[i].updateState();
+                    }    
                 }
 
                 for (var i = 0; i < forDelete.length; i++) {
                     glyphs.splice(forDelete[i], 1);
                 }
             }
+            function renderForGlyphArray(glyphs) {
+                for (var i = 0; i < glyphs.length; i++) {
+                    glyphs[i].render();
+                }
+            }
+            function handleInputForGlyphArray(glyphs) {
+                for (var i = 0; i < glyphs.length; i++) {
+                    glyphs[i].handleInput(input);
+                }
+            }
             
-            function renderLoop() {
+            
+            function handleInput(dt) {
+
+                glyphsTree.laser.handleInput(input);
+                handleInputForGlyphArray(glyphsTree.shots);
+                handleInputForGlyphArray(glyphsTree.aliens);
+            }
+            function updateStates() {
+                 
+                glyphsTree.laser.updateState();
+                updateForGlyphArray(glyphsTree.shots);
+                updateForGlyphArray(glyphsTree.aliens);
+            }
+            function render() {
 
                 renderCanvas();
-
-                glyphsTree.laser.renderObject(controlEvent);
-
-                if (controlEvent.shot) {
-
-                    if ((new Date() - lastShotTime) > 500) {
-                        glyphsTree.shots.push(new Shot(gameContext, glyphsTree.laser.x));
-                        lastShotTime = new Date();
-                    }
-                }
-
-                renderAndClearGryphs(glyphsTree.shots, controlEvent);
-                renderAndClearGryphs(glyphsTree.aliens, controlEvent);
+                glyphsTree.laser.render();
+                renderForGlyphArray(glyphsTree.shots);
+                renderForGlyphArray(glyphsTree.aliens);
             }
 
             function renderCanvas() {
                 ctx.fillStyle = "#000000";
                 ctx.fillRect(0, 0, 600, 600);
+            }
+    
+            var lastTime;
+            function renderLoop() {
+
+                var now = Date.now();
+                var dt = (now - lastTime) / 1000.0;
+
+                handleInput(dt);
+                updateStates();
+                render();
+                
+                lastTime = now;
+                requestAnimFrame(renderLoop);
             }
         }
 
