@@ -3,6 +3,7 @@
 Shot.width = 2;
 Shot.height = 4;
 Shot.prototype = Object.create(Glyph.prototype);
+Shot.behaviour = new ShotBehaviour();
 
 function Shot(gameContext, x) {
 
@@ -17,22 +18,12 @@ function Shot(gameContext, x) {
     var glyphsTree = gameContext.glyphsTree;
 
     this.handleInput = function (input) {
-
+        Shot.behaviour.update(gameContext, self, input);
     }
 
     this.updateState = function () {
 
-        self.y -= 2;
-        if (self.y < 0)
-            self.destroy = true;
-
-        gameContext.glyphsTree.aliens.some(function(alien) {
-            if (glyphHelper.macroCollision(self, alien)) {
-                alien.destroy = true;
-                self.destroy = true;
-                return true;
-            }
-        });
+       
     }
 
     this.render = function () {

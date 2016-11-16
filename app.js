@@ -149,12 +149,14 @@ myApp.controller("MainController",
                 glyphsTree.laser.handleInput(input);
                 handleInputForGlyphArray(glyphsTree.shots);
                 handleInputForGlyphArray(glyphsTree.aliens);
+                handleInputForGlyphArray(glyphsTree.alienShots);
             }
             function updateStates() {
                  
                 glyphsTree.laser.updateState();
                 updateForGlyphArray(glyphsTree.shots);
                 updateForGlyphArray(glyphsTree.aliens);
+                updateForGlyphArray(glyphsTree.alienShots);
             }
             function render() {
 
@@ -162,6 +164,7 @@ myApp.controller("MainController",
                 glyphsTree.laser.render();
                 renderForGlyphArray(glyphsTree.shots);
                 renderForGlyphArray(glyphsTree.aliens);
+                renderForGlyphArray(glyphsTree.alienShots);
             }
 
             function renderCanvas() {

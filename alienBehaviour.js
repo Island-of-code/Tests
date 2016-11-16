@@ -6,12 +6,12 @@ function AlienBehaviour(alien) {
 }
 
 AlienBehaviour.prototype.update = function(gameContext, alien, input) {
-    if (input.shot) {
+    
+    
 
-        if ((Date.now() - alien.lastShot) > 500) {
-            gameContext.glyphsTree.shots.push(new Shot(gameContext, gameContext.glyphsTree.laser.x));
-            alien.lastShotTime = Date.now();
+    if ((Date.now() - alien.lastShotTime) > 1000) {
+        gameContext.glyphsTree.alienShots.push(new AlienShot(gameContext, alien.x));
+        alien.lastShotTime = Date.now();
         }
-    }
 
 }

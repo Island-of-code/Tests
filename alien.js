@@ -14,9 +14,9 @@ function Alien(gameContext, x) {
     this.y = Alien.height;
     this.width = Alien.width;
     this.height = Alien.height;
-    this.lastShot = Date.now();
     var ctx = this.gameContext.ctx;
-    
+    this.lastShotTime = Date.now();
+
     this.handleInput = function(input) {
         Alien.behaviour.update(gameContext, self, input);
     }

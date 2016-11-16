@@ -4,6 +4,7 @@ AlienShot.width = 1;
 AlienShot.height = 10;
 
 AlienShot.prototype = Object.create(Glyph.prototype);
+AlienShot.behaviour = new AlienShotBehaviour();
 
 function AlienShot(gameContext, x) {
     
