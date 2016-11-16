@@ -47,22 +47,35 @@ myApp.controller("MainController",
 
             eventAggregator.on("rightDown.happens",
                 function() {
+                    controlEvent.rightDown = 1;
                     controlEvent.laser.dx = 1;
                 });
 
             eventAggregator.on("rightUp.happens",
                 function() {
                     controlEvent.laser.dx = 0;
+                    controlEvent.rightDown = 0;
+
+                    if (controlEvent.leftDown)
+                        controlEvent.laser.dx = -1;
                 });
 
             eventAggregator.on("leftDown.happens",
                 function() {
                     controlEvent.laser.dx = -1;
+                    controlEvent.leftDown = 1;
+
+
                 });
 
             eventAggregator.on("leftUp.happens",
                 function() {
                     controlEvent.laser.dx = 0;
+                    controlEvent.leftDown = 0;
+                    
+                    if(controlEvent.rightDown)
+                        controlEvent.laser.dx = 1;
+
                 });
 
             eventAggregator.on("upUp.happens",
@@ -91,13 +104,13 @@ myApp.controller("MainController",
                 }
             }
 
-            function renderCollectionAndFilter(glyphs, controlEvent) {
+            function renderAndClearGryphs(glyphs, controlEvent) {
 
                 var forDelete = [];
 
                 for (var i = 0; i < glyphs.length; i++) {
 
-                    if (glyphs.destroy) {
+                    if (glyphs[i].destroy) {
                         forDelete.push(i);
                     } else {
                         glyphs[i].renderObject(controlEvent);
@@ -117,14 +130,14 @@ myApp.controller("MainController",
 
                 if (controlEvent.shot) {
 
-                    if ((new Date() - lastShotTime) > 100) {
+                    if ((new Date() - lastShotTime) > 500) {
                         glyphsTree.shots.push(new Shot(gameContext, glyphsTree.laser.x));
                         lastShotTime = new Date();
                     }
                 }
 
-                renderCollectionAndFilter(glyphsTree.shots, controlEvent);
-                renderCollectionAndFilter(glyphsTree.aliens, controlEvent);
+                renderAndClearGryphs(glyphsTree.shots, controlEvent);
+                renderAndClearGryphs(glyphsTree.aliens, controlEvent);
             }
 
             function renderCanvas() {

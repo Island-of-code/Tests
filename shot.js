@@ -20,16 +20,19 @@ function Shot(gameContext, x) {
         if (self.destroy) {
             return;
         }
-        self.y -= 4;
+        self.y -= 2;
         if (self.y < 0)
             self.destroy = true;
 
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(self.x, self.y, self.width, self.height);
+        ctx.fillRect(self.x, self.y + self.height + 3, self.width, self.height);
 
         for (var i = 0; i < gameContext.glyphsTree.aliens.length; i++) {
             if (glyphHelper.macroCollision(self, gameContext.glyphsTree.aliens[i])) {
                 glyphsTree.aliens[i].destroy = true;
+                this.destroy = true;
+                break;
 
             }
 
