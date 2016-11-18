@@ -122,14 +122,14 @@ myApp.controller("MainController",
                 for (var i = 0; i < glyphs.length; i++) {
                     
                     if (glyphs[i].destroy) {
-                        forDelete.push(i);
+                        forDelete.push(glyphs[i]);
                     } else {
                         glyphs[i].updateState();
                     }    
                 }
-
+                //console.log("destroy=" + forDelete.length);
                 for (var i = 0; i < forDelete.length; i++) {
-                    glyphs.splice(forDelete[i], 1);
+                    glyphs.splice(glyphs.indexOf(forDelete[i]), 1);
                 }
             }
             function renderForGlyphArray(glyphs) {
@@ -169,7 +169,7 @@ myApp.controller("MainController",
 
             function renderCanvas() {
                 ctx.fillStyle = "#000000";
-                ctx.fillRect(0, 0, 600, 600);
+                ctx.fillRect(0, 0, gameContext.canvasWidth, gameContext.canvasHeight);
             }
     
             var lastTime;

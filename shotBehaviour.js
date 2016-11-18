@@ -8,6 +8,9 @@ function ShotBehaviour() {
 
 ShotBehaviour.prototype.update = function (gameContext, shot, input) {
 
+
+
+    
         shot.y -= 2;
         if (shot.y < 0)
             shot.destroy = true;
