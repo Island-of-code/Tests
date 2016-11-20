@@ -10,22 +10,24 @@ function Laser(gameContext) {
 
     Glyph.call(this, gameContext);
     var self = this;
+    var ctx = gameContext.ctx;
     this.x = gameContext.canvasWidth / 2;
     this.y = gameContext.canvasHeight - 10;
     this.width = Laser.width;
     this.height = Laser.height;
-    var ctx = gameContext.ctx;
     this.lastShotTime = Date.now();
+    this.sprite = new Sprite(ctx, "images/laser.png", [this.x, this.y], [this.width, this.height]);
 
     this.handleInput = function(input) {
         Laser.behaviour.update(gameContext, self, input);
     }
 
-    this.updateState = function () {
+    this.update = function () {
     }
 
-    this.render = function() {
-        
+    this.render = function () {
+
+        this.sprite.render();
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(self.x, self.y, self.width, self.height);
     };

@@ -21,7 +21,7 @@ function AlienShot(gameContext, x) {
         AlienShot.behaviour.update(gameContext, self, input);
     }
 
-    this.updateState = function () {
+    this.update = function () {
 
     }
 

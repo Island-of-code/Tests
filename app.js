@@ -124,7 +124,7 @@ myApp.controller("MainController",
                     if (glyphs[i].destroy) {
                         forDelete.push(glyphs[i]);
                     } else {
-                        glyphs[i].updateState();
+                        glyphs[i].update();
                     }    
                 }
                 //console.log("destroy=" + forDelete.length);
@@ -153,7 +153,7 @@ myApp.controller("MainController",
             }
             function updateStates() {
                  
-                glyphsTree.laser.updateState();
+                glyphsTree.laser.update();
                 updateForGlyphArray(glyphsTree.shots);
                 updateForGlyphArray(glyphsTree.aliens);
                 updateForGlyphArray(glyphsTree.alienShots);

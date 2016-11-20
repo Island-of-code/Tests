@@ -21,7 +21,7 @@ function Shot(gameContext, x) {
         Shot.behaviour.update(gameContext, self, input);
     }
 
-    this.updateState = function () {
+    this.update = function () {
 
        
     }

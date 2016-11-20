@@ -1,6 +1,7 @@
 ﻿"use strict";
 
-function Sprite(url, pos, size, speed, frames, dir, once) {
+function Sprite(ctx, url, pos, size, speed, frames, dir, once) {
+    this.ctx = ctx;
     this.pos = pos;
     this.size = size;
     this.speed = typeof speed === 'number' ? speed : 0;
@@ -15,7 +16,7 @@ Sprite.prototype.update = function (dt) {
     this._index += this.speed * dt;
 }
 
-Sprite.prototype.render = function (ctx) {
+Sprite.prototype.render = function () {
     var frame;
 
     if (this.speed > 0) {
@@ -31,8 +32,7 @@ Sprite.prototype.render = function (ctx) {
     else {
         frame = 0;
     }
-
-
+    
     var x = this.pos[0];
     var y = this.pos[1];
 
@@ -43,7 +43,7 @@ Sprite.prototype.render = function (ctx) {
         x += frame * this.size[0];
     }
 
-    ctx.drawImage(resources.get(this.url),
+    this.ctx.drawImage(resources.get(this.url),
                   x, y,
                   this.size[0], this.size[1],
                   0, 0,
