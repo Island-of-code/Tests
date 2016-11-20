@@ -16,20 +16,32 @@ function Laser(gameContext) {
     this.width = Laser.width;
     this.height = Laser.height;
     this.lastShotTime = Date.now();
-    this.sprite = new Sprite(ctx, "images/laser.png", [this.x, this.y], [this.width, this.height]);
+
+    
+
+    //this.sprite = new Sprite(ctx, "./images/laser.png", [0, 0], [50, 50]);
+    this.sprite = new Sprite(ctx, "./images/exploer.png", [0, 117],
+                                       [39, 39],
+                                       16,
+                                       [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                                       null,
+                                       false);
 
     this.handleInput = function(input) {
         Laser.behaviour.update(gameContext, self, input);
     }
 
-    this.update = function () {
+    this.update = function (dt) {
+
+        this.sprite.update(dt);
     }
 
     this.render = function () {
 
-        this.sprite.render();
+        
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(self.x, self.y, self.width, self.height);
+        this.sprite.render();
     };
 }
 

@@ -44,8 +44,8 @@ Sprite.prototype.render = function () {
     }
 
     this.ctx.drawImage(resources.get(this.url),
-                  x, y,
-                  this.size[0], this.size[1],
-                  0, 0,
-                  this.size[0], this.size[1]);
+                   x, y,
+                   this.size[0], this.size[1],
+                   0, 0,
+                   this.size[0], this.size[1]);
 }

@@ -115,7 +115,7 @@ myApp.controller("MainController",
                 }
             }
 
-            function updateForGlyphArray(glyphs) {
+            function updateForGlyphArray(glyphs, dt) {
 
                 var forDelete = [];
 
@@ -124,7 +124,7 @@ myApp.controller("MainController",
                     if (glyphs[i].destroy) {
                         forDelete.push(glyphs[i]);
                     } else {
-                        glyphs[i].update();
+                        glyphs[i].update(dt);
                     }    
                 }
                 //console.log("destroy=" + forDelete.length);
@@ -144,19 +144,19 @@ myApp.controller("MainController",
             }
             
             
-            function handleInput(dt) {
+            function handleInput() {
 
                 glyphsTree.laser.handleInput(input);
                 handleInputForGlyphArray(glyphsTree.shots);
                 handleInputForGlyphArray(glyphsTree.aliens);
                 handleInputForGlyphArray(glyphsTree.alienShots);
             }
-            function updateStates() {
+            function updateObjects(dt) {
                  
-                glyphsTree.laser.update();
-                updateForGlyphArray(glyphsTree.shots);
-                updateForGlyphArray(glyphsTree.aliens);
-                updateForGlyphArray(glyphsTree.alienShots);
+                glyphsTree.laser.update(dt);
+                updateForGlyphArray(glyphsTree.shots, dt);
+                updateForGlyphArray(glyphsTree.aliens, dt);
+                updateForGlyphArray(glyphsTree.alienShots, dt);
             }
             function render() {
 
@@ -178,8 +178,8 @@ myApp.controller("MainController",
                 var now = Date.now();
                 var dt = (now - lastTime) / 1000.0;
 
-                handleInput(dt);
-                updateStates();
+                handleInput();
+                updateObjects(dt);
                 render();
                 
                 lastTime = now;
@@ -191,7 +191,10 @@ myApp.controller("MainController",
         $scope.greeting = "Hola!";
 
         var game = new Game(canvasElement, eventAggregator);
-        game.run();
-
+        
+        resources.onReady(function() { game.run(); });
+        resources.load([
+            "./images/laser.png", './images/exploer.png']);
+        
     }
 ]);
