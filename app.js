@@ -111,14 +111,37 @@ myApp.controller("MainController",
                 renderLoop();
             };
 
+            
             function addAliens(count) {
-                var x = gameContext.canvasWidth / count;
-                var step = x;
-                for (var i = 0; i < count-1; i++) {
-                    glyphsTree.aliens.push(new Alien(gameContext, x - (Alien.width / 2)));
-                    x += step;
+                
+                var map = [
+                    [1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1, 1, 1],
+                    [1, 1, 1, 1, 1],
+                    [1]
+                ];
+
+                map.forEach(function(elem, index_y) {
+
+                    var y = (index_y * (AlienT1.height + 10));
+                    var step = gameContext.canvasWidth / (elem.length + 1);
+                    var x = step;
+                    
+                    elem.forEach(function(item, index_x) {
+
+                        var alien = new AlienT1(gameContext, x - (AlienT1.width  / 2), y);
+
+                        glyphsTree.aliens.push(alien);
+
+                        x += step;
+
+                    });
+
+                });
                 }
-            }
 
             function updateForGlyphArray(glyphs, dt) {
 
@@ -201,6 +224,8 @@ myApp.controller("MainController",
         resources.onReady(function() { game.run(); });
         resources.load([
             "./images/laser.png",
+            "./images/laserRed16.png",
+            "./images/enemyBlack2.png",
             "./images/laserGreen11.png",
             "./images/playerShip3_green_small.png",
             './images/exploer.png']);

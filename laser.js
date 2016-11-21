@@ -47,16 +47,6 @@ function Laser(gameContext) {
         this.currentSprite.update(dt);
     }
 
-    this.render = function () {
-
-        //ctx.fillStyle = "#FF0000";
-        //ctx.fillRect(self.x, self.y, self.width, self.height);
-        this.currentSprite.x = self.x;
-        this.currentSprite.y = self.y;
-        this.currentSprite.frames = this.frames;
-        this.currentSprite.render();
-    };
-
     this.explosion = function() {
         this.currentSprite = this.explosionSprite;
         this.frames = this.explosionSprite.frames;

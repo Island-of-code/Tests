@@ -6,12 +6,12 @@ AlienShot.height = 10;
 AlienShot.prototype = Object.create(Glyph.prototype);
 AlienShot.behaviour = new AlienShotBehaviour();
 
-function AlienShot(gameContext, x) {
+function AlienShot(gameContext, x, y) {
     
     Glyph.call(this, gameContext);
     var self = this;
     this.x = x;
-    this.y = AlienShot.height;
+    this.y = y;
     this.width = AlienShot.width;
     this.height = AlienShot.height;
 

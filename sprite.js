@@ -28,6 +28,8 @@ Sprite.prototype.render = function () {
 
         if (this.once && idx >= max) {
             this.done = true;
+            if (this.doneEvent)
+                this.doneEvent();
             return;
         }
     }

@@ -17,7 +17,7 @@ function Shot(gameContext, x, y) {
     var ctx = gameContext.ctx;
 
     this.currentSprite = new Sprite(ctx,
-            "./images/laserGreen11.png",
+            "./images/laserRed16.png",
             [0, 0],
             [this.width, this.height],
             16,
@@ -35,20 +35,5 @@ function Shot(gameContext, x, y) {
 
         this.currentSprite.update(dt);
     }
-
-    this.render = function () {
-
-        if (self.destroy) {
-            return;
-        }
-        //ctx.fillStyle = "#FF0000";
-        //ctx.fillRect(self.x, self.y, self.width, self.height);
-        //ctx.fillRect(self.x, self.y + self.height + 3, self.width, self.height);
-        this.currentSprite.x = self.x;
-        this.currentSprite.y = self.y;
-        this.currentSprite.frames = this.frames;
-        this.currentSprite.render();
-        
-    };
 }
 

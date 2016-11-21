@@ -17,7 +17,7 @@ ShotBehaviour.prototype.update = function (gameContext, shot, input) {
 
         gameContext.glyphsTree.aliens.some(function (alien) {
             if (glyphHelper.macroCollision(shot, alien)) {
-                alien.destroy = true;
+                alien.explosion();
                 shot.destroy = true;
                 return true;
             }
