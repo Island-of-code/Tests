@@ -10,6 +10,8 @@ function Sprite(ctx, url, pos, size, speed, frames, dir, once) {
     this.url = url;
     this.dir = dir || 'horizontal';
     this.once = once;
+    this.x = 0;
+    this.y = 0;
 };
 
 Sprite.prototype.update = function (dt) {
@@ -46,6 +48,6 @@ Sprite.prototype.render = function () {
     this.ctx.drawImage(resources.get(this.url),
                    x, y,
                    this.size[0], this.size[1],
-                   0, 0,
+                   this.x, this.y,
                    this.size[0], this.size[1]);
 }

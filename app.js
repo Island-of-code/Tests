@@ -51,7 +51,12 @@ myApp.controller("MainController",
                 laser: {}
             };
 
-            var ctx = canvasElement.getContext("2d");
+           var ctx = canvasElement.getContext("2d");
+           ctx.mozImageSmoothingEnabled = false;
+           ctx.webkitImageSmoothingEnabled = false;
+           ctx.msImageSmoothingEnabled = false;
+           ctx.imageSmoothingEnabled = false;
+
             var gameContext = new GameDataContext(ctx, canvasElement);
             var glyphsTree = gameContext.glyphsTree;
             
@@ -161,10 +166,11 @@ myApp.controller("MainController",
             function render() {
 
                 renderCanvas();
-                glyphsTree.laser.render();
                 renderForGlyphArray(glyphsTree.shots);
                 renderForGlyphArray(glyphsTree.aliens);
                 renderForGlyphArray(glyphsTree.alienShots);
+                glyphsTree.laser.render();
+
             }
 
             function renderCanvas() {
@@ -172,7 +178,7 @@ myApp.controller("MainController",
                 ctx.fillRect(0, 0, gameContext.canvasWidth, gameContext.canvasHeight);
             }
     
-            var lastTime;
+            var lastTime = Date.now();;
             function renderLoop() {
 
                 var now = Date.now();
@@ -194,7 +200,10 @@ myApp.controller("MainController",
         
         resources.onReady(function() { game.run(); });
         resources.load([
-            "./images/laser.png", './images/exploer.png']);
+            "./images/laser.png",
+            "./images/laserGreen11.png",
+            "./images/playerShip3_green_small.png",
+            './images/exploer.png']);
         
     }
 ]);
