@@ -44,7 +44,8 @@ function Laser(gameContext) {
     }
 
     this.update = function (dt) {
-        this.currentSprite.update(dt);
+
+       this.currentSprite.update(dt);
     }
 
     this.explosion = function() {

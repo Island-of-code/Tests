@@ -4,6 +4,7 @@ function Glyph(gameContext) {
     this.gameContext = gameContext;
     this.destroy = false;
     this.sprite = null;
+    this.frames = [0];
 
     this.render = function () {
 

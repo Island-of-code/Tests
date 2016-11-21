@@ -18,7 +18,7 @@ function Alien(gameContext, x, y, width, height) {
     this.lastMove = Date.now();
     this.dx = 0;
     this.dy = 0;
-    this.frames = [0];
+    
 
     var self = this;
     this.explosionSprite = new Sprite(gameContext.ctx,
@@ -55,9 +55,7 @@ function Alien(gameContext, x, y, width, height) {
 
         this.currentSprite.update(dt);
     }
-
     
-
     this.explosion = function () {
         this.currentSprite = this.explosionSprite;
         this.currentSprite.doneEvent = function () {
