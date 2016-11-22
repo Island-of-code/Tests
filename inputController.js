@@ -90,6 +90,6 @@ var inputController = (function() {
         });
 
     return {
-        input: input
+        event: input
     };
 })();

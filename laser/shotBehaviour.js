@@ -1,10 +1,8 @@
 ﻿"use strict";
 
 function ShotBehaviour() {
-
-
+    
 }
-
 
 ShotBehaviour.prototype.update = function(gameContext, shot) {
 

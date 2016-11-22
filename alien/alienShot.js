@@ -9,13 +9,12 @@ AlienShot.behaviour = new AlienShotBehaviour();
 function AlienShot(gameContext, x, y) {
     
     Glyph.call(this, gameContext);
-    var self = this;
     this.x = x;
     this.y = y;
     this.width = AlienShot.width;
     this.height = AlienShot.height;
 
-    var ctx = this.gameContext.ctx;
+    var ctx = this._gameContext.ctx;
     
     this.currentSprite = new Sprite(ctx,
             "laserBlue03.png",
@@ -25,17 +24,13 @@ function AlienShot(gameContext, x, y) {
             [0],
             null,
             false);
-
-
-
-    this.handleInput = function() {
-        AlienShot.behaviour.update(gameContext, self);
-    }
-
-    this.update = function (dt) {
-        this.currentSprite.update(dt);
-    }
-
-    
+   
 }
 
+AlienShot.prototype.handleInput = function () {
+    AlienShot.behaviour.update(this._gameContext, this);
+}
+
+AlienShot.prototype.update = function (dt) {
+    this.currentSprite.update(dt);
+}

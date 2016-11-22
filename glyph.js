@@ -1,11 +1,14 @@
 ﻿"use strict";
 
-function Glyph(gameContext) {
-    this.gameContext = gameContext;
+function Glyph(gameContext, x, y, width, height) {
+    this._gameContext = gameContext;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
     this.destroy = false;
     this.sprite = null;
     this.frames = [0];
-
 }
 
 Glyph.prototype.render = function() {

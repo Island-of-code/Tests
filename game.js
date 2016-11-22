@@ -3,13 +3,13 @@
 function Game(canvasElement) {
 
     // A cross-browser requestAnimationFrame
-    var requestAnimFrame = (function () {
+    var requestAnimFrame = (function() {
         return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame ||
             window.oRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
-            function (callback) {
+            function(callback) {
                 window.setTimeout(callback, 1000 / 60);
             };
     })();
@@ -23,53 +23,10 @@ function Game(canvasElement) {
 
     var gameContext = new GameContext(ctx, canvasElement);
     var glyphsTree = gameContext.glyphsTree;
-    var backgroundPattern = ctx.createPattern(resourceHelper.get('darkPurple.png'), 'repeat');
+    var backgroundPattern = ctx.createPattern(resourceHelper.get("darkPurple.png"), "repeat");
     var fps = 0;
 
-    //eventAggregator.on("rightDown.happens",
-    //    function () {
-    //        input.rightDown = 1;
-    //        input.laser.dx = 1;
-    //    });
-
-    //eventAggregator.on("rightUp.happens",
-    //    function () {
-    //        input.laser.dx = 0;
-    //        input.rightDown = 0;
-
-    //        if (input.leftDown)
-    //            input.laser.dx = -1;
-    //    });
-
-    //eventAggregator.on("leftDown.happens",
-    //    function () {
-    //        input.laser.dx = -1;
-    //        input.leftDown = 1;
-
-
-    //    });
-
-    //eventAggregator.on("leftUp.happens",
-    //    function () {
-    //        input.laser.dx = 0;
-    //        input.leftDown = 0;
-
-    //        if (input.rightDown)
-    //            input.laser.dx = 1;
-
-    //    });
-
-    //eventAggregator.on("upUp.happens",
-    //    function () {
-    //        input.shot = false;
-    //    });
-
-    //eventAggregator.on("upDown.happens",
-    //    function () {
-    //        input.shot = true;
-    //    });
-
-    this.run = function () {
+    this.run = function() {
 
         addAliens(20);
         glyphsTree.laser = new Laser(gameContext);
@@ -89,20 +46,17 @@ function Game(canvasElement) {
             [1]
         ];
 
-        map.forEach(function (elem, index_y) {
+        map.forEach(function(elem, indexY) {
 
-            var y = (index_y * (AlienT1.height + 10));
+            var y = (indexY * (AlienT1.height + 10));
             var step = gameContext.canvasWidth / (elem.length + 1);
             var x = step;
 
-            elem.forEach(function (item, index_x) {
+            elem.forEach(function(item, indexX) {
 
                 var alien = new AlienT1(gameContext, x - (AlienT1.width / 2), y);
-
                 glyphsTree.aliens.push(alien);
-
                 x += step;
-
             });
 
         });
@@ -125,11 +79,13 @@ function Game(canvasElement) {
             glyphs.splice(glyphs.indexOf(forDelete[i]), 1);
         }
     }
+
     function renderGlyphArray(glyphs) {
         for (var i = 0; i < glyphs.length; i++) {
             glyphs[i].render();
         }
     }
+
     function handleInputGlyphArray(glyphs) {
         for (var i = 0; i < glyphs.length; i++) {
             glyphs[i].handleInput();
@@ -168,6 +124,7 @@ function Game(canvasElement) {
     }
 
     var lastTime = Date.now();;
+
     function renderLoop() {
 
         var now = Date.now();

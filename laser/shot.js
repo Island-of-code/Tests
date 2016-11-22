@@ -7,16 +7,9 @@ Shot.behaviour = new ShotBehaviour();
 
 function Shot(gameContext, x, y) {
 
-    Glyph.call(this, gameContext);
+    Glyph.call(this, gameContext, x, y, Shot.width, Shot.height);
 
-    var self = this;
-    this.x = x;
-    this.y = y;
-    this.width = Shot.width;
-    this.height = Shot.height;
-    var ctx = gameContext.ctx;
-
-    this.currentSprite = new Sprite(ctx,
+    this.currentSprite = new Sprite(gameContext.ctx,
             "laserRed16.png",
             [0, 0],
             [this.width, this.height],
@@ -27,13 +20,14 @@ function Shot(gameContext, x, y) {
 
     this.frames = this.currentSprite.frames;
 
-    this.handleInput = function () {
-        Shot.behaviour.update(gameContext, self);
-    }
-
-    this.update = function (dt) {
-
-        this.currentSprite.update(dt);
-    }
+    
 }
 
+Shot.prototype.handleInput = function () {
+    Shot.behaviour.update(this._gameContext, this);
+}
+
+Shot.prototype.update = function (dt) {
+
+    this.currentSprite.update(dt);
+}
