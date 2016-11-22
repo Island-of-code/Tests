@@ -1,5 +1,6 @@
+"use strict";
 
-(function() {
+var geometryHelper = (function () {
     var resourceCache = {};
     var loading = [];
     var readyCallbacks = [];
@@ -53,7 +54,7 @@
         readyCallbacks.push(func);
     }
 
-    return resourceHelper = { 
+    return { 
         load: load,
         get: get,
         onReady: onReady,

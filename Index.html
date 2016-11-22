@@ -1,18 +1,20 @@
 ﻿<!doctype html>
-<html >
+<html>
 <head>
     <meta charset="utf-8">
-    <title>My HTML File</title>
+    <title>Space Invaders</title>
     <script src="./angular/angular.js"></script>
     <script src="./angular-external/angular-event-aggregator.js"></script>
     
     <script src="./helpers/geometryHelper.js"></script>
     <script src="./helpers/resourceHelper.js"></script>
+    <script src="./inputController.js"></script>
 
     <script src="./sprite.js"></script>
     <script src="./glyph.js"></script>
     
     <script src="./gameContext.js"></script>
+    <script src="./game.js"></script>
     
     <script src="./alien/alienBehaviour.js"></script>
     <script src="./alien/alien.js"></script>
@@ -29,7 +31,7 @@
 
     <script src="./app.js"></script>
 </head>
-<body ng-keydown="onKeydown($event)" ng-keyup="onlKeyup($event)">
+<body>
     <div style="margin: 50px 50px">
         <canvas id="canvas" width="500" height="500" style="border: 1px gray solid;margin: 50px 50px"></canvas>
     </div>

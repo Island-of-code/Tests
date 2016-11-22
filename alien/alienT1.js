@@ -11,7 +11,7 @@ function AlienT1(gameContext, x, y) {
     Alien.call(this, gameContext, x, y, AlienT1.width, AlienT1.height);
 
     this.currentSprite = new Sprite(gameContext.ctx,
-            "./images/enemyBlack2.png",
+            "enemyBlack2.png",
             [0, 0],
             [this.width, this.height],
             16,

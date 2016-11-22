@@ -44,7 +44,7 @@ Sprite.prototype.render = function() {
         x += frame * this.size[0];
     }
 
-    this.ctx.drawImage(resources.get(this.url),
+    this.ctx.drawImage(resourceHelper.get(this.url),
         x,
         y,
         this.size[0],

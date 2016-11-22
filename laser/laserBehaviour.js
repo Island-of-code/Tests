@@ -6,7 +6,7 @@ function LaserBehaviour() {
 
 LaserBehaviour.prototype.update = function (gameContext, laser, input) {
 
-    if (input.laser.dx) {
+    if (input.isDown('LEFT')) {
         laser.x += input.laser.dx;
         laser.setMovingState(true);
     }

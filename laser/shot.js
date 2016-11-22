@@ -17,7 +17,7 @@ function Shot(gameContext, x, y) {
     var ctx = gameContext.ctx;
 
     this.currentSprite = new Sprite(ctx,
-            "./images/laserRed16.png",
+            "laserRed16.png",
             [0, 0],
             [this.width, this.height],
             16,

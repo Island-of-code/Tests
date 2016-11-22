@@ -20,7 +20,7 @@ function Laser(gameContext) {
     this._fixFrames = [0];
     
     this.currentSprite = new Sprite(ctx,
-            "./images/playerShip3_green_small.png",
+            "playerShip3_green_small.png",
             [0, 0],
             [this.width, this.height],
             16,
@@ -29,7 +29,7 @@ function Laser(gameContext) {
             false);
 
     this.explosionSprite = new Sprite(ctx,
-            "./images/exploer.png",
+            "exploer.png",
             [0, 117],
             [39, 32],
             16,
