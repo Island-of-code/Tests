@@ -22,7 +22,7 @@ function Alien(gameContext, x, y, width, height) {
 
     var self = this;
     this.explosionSprite = new Sprite(gameContext.ctx,
-            "./images/exploer.png",
+            "exploer.png",
             [0, 117],
             [39, 32],
             16,

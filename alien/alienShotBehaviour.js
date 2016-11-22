@@ -14,7 +14,7 @@ AlienShotBehaviour.prototype.update = function (gameContext, alienShot, input) {
         
     }
     
-    //if (glyphHelper.macroCollision(alienShot, gameContext.glyphsTree.laser)) {
+    //if (geometryHelper.checkCollision(alienShot, gameContext.glyphsTree.laser)) {
     //    gameContext.glyphsTree.laser.explosion();
     //}
 }

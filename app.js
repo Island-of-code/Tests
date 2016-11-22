@@ -56,10 +56,12 @@ myApp.controller("MainController",
            ctx.webkitImageSmoothingEnabled = false;
            ctx.msImageSmoothingEnabled = false;
            ctx.imageSmoothingEnabled = false;
+           ctx.font = "normal 16pt Arial";
 
-            var gameContext = new GameDataContext(ctx, canvasElement);
+            var gameContext = new GameContext(ctx, canvasElement);
             var glyphsTree = gameContext.glyphsTree;
-            
+            var backgroundPattern = ctx.createPattern(resources.get('./images/darkPurple.png'), 'repeat');
+            var fps = 0;
 
             eventAggregator.on("rightDown.happens",
                 function() {
@@ -143,7 +145,7 @@ myApp.controller("MainController",
                 });
                 }
 
-            function updateForGlyphArray(glyphs, dt) {
+            function updateGlyphArray(glyphs, dt) {
 
                 var forDelete = [];
 
@@ -160,12 +162,12 @@ myApp.controller("MainController",
                     glyphs.splice(glyphs.indexOf(forDelete[i]), 1);
                 }
             }
-            function renderForGlyphArray(glyphs) {
+            function renderGlyphArray(glyphs) {
                 for (var i = 0; i < glyphs.length; i++) {
                     glyphs[i].render();
                 }
             }
-            function handleInputForGlyphArray(glyphs) {
+            function handleInputGlyphArray(glyphs) {
                 for (var i = 0; i < glyphs.length; i++) {
                     glyphs[i].handleInput(input);
                 }
@@ -175,32 +177,32 @@ myApp.controller("MainController",
             function handleInput() {
 
                 glyphsTree.laser.handleInput(input);
-                handleInputForGlyphArray(glyphsTree.shots);
-                handleInputForGlyphArray(glyphsTree.aliens);
-                handleInputForGlyphArray(glyphsTree.alienShots);
+                handleInputGlyphArray(glyphsTree.shots);
+                handleInputGlyphArray(glyphsTree.aliens);
+                handleInputGlyphArray(glyphsTree.alienShots);
             }
             function updateObjects(dt) {
                  
                 glyphsTree.laser.update(dt);
-                updateForGlyphArray(glyphsTree.shots, dt);
-                updateForGlyphArray(glyphsTree.aliens, dt);
-                updateForGlyphArray(glyphsTree.alienShots, dt);
+                updateGlyphArray(glyphsTree.shots, dt);
+                updateGlyphArray(glyphsTree.aliens, dt);
+                updateGlyphArray(glyphsTree.alienShots, dt);
             }
-            function render() {
+            function renderObjects() {
 
-                renderCanvas();
-                renderForGlyphArray(glyphsTree.shots);
-                renderForGlyphArray(glyphsTree.aliens);
-                renderForGlyphArray(glyphsTree.alienShots);
+                
+                renderGlyphArray(glyphsTree.shots);
+                renderGlyphArray(glyphsTree.aliens);
+                renderGlyphArray(glyphsTree.alienShots);
                 glyphsTree.laser.render();
 
             }
 
             function renderCanvas() {
-                ctx.fillStyle = "#000000";
+                ctx.fillStyle = backgroundPattern;
                 ctx.fillRect(0, 0, gameContext.canvasWidth, gameContext.canvasHeight);
             }
-    
+            
             var lastTime = Date.now();;
             function renderLoop() {
 
@@ -209,8 +211,15 @@ myApp.controller("MainController",
 
                 handleInput();
                 updateObjects(dt);
-                render();
-                
+                renderCanvas();
+                renderObjects();
+
+                //display FPS
+                var delta = (now - lastTime) / 1000;
+                fps = Math.round(1 / delta);
+                gameContext.ctx.fillStyle = "Black";
+                gameContext.ctx.fillText(fps + " fps", 10, 26);
+
                 lastTime = now;
                 requestAnimFrame(renderLoop);
             }
@@ -218,17 +227,22 @@ myApp.controller("MainController",
 
         var canvasElement = document.getElementById("canvas");
         $scope.greeting = "Hola!";
+        
+        
+        resourceHelper.onReady(function () {
 
-        var game = new Game(canvasElement, eventAggregator);
-        
-        resources.onReady(function() { game.run(); });
-        resources.load([
-            "./images/laser.png",
-            "./images/laserRed16.png",
-            "./images/enemyBlack2.png",
-            "./images/laserGreen11.png",
-            "./images/playerShip3_green_small.png",
-            './images/exploer.png']);
-        
-    }
+            var game = new Game(canvasElement, eventAggregator);
+            game.run();
+        });
+
+        resourceHelper.load([
+            "laser.png",
+            "laserBlue03.png",
+            "darkPurple.png",
+            "laserRed16.png",
+            "enemyBlack2.png",
+            "laserGreen11.png",
+            "playerShip3_green_small.png",
+            "exploer.png"]);
+        }
 ]);

@@ -1,8 +1,8 @@
 ﻿"use strict";
 
-var glyphHelper = (function () {
+var geometryHelper = (function () {
 
-    function macroCollision(obj1, obj2) {
+    function checkCollision(obj1, obj2) {
         var XColl = false;
         var YColl = false;
 
@@ -14,7 +14,7 @@ var glyphHelper = (function () {
     }
 
     return {
-        macroCollision: macroCollision
+        checkCollision: checkCollision
     }
 
 })();

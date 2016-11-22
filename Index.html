@@ -5,34 +5,34 @@
     <title>My HTML File</title>
     <script src="./angular/angular.js"></script>
     <script src="./angular-external/angular-event-aggregator.js"></script>
-    <script src="./glyphHelper.js"></script>
+    
+    <script src="./helpers/geometryHelper.js"></script>
+    <script src="./helpers/resourceHelper.js"></script>
+
     <script src="./sprite.js"></script>
     <script src="./glyph.js"></script>
-    <script src="./resources.js"></script>
-
+    
     <script src="./gameContext.js"></script>
     
-    <script src="./alienBehaviour.js"></script>
-    <script src="./alien.js"></script>
-    <script src="./alienT1.js"></script>
+    <script src="./alien/alienBehaviour.js"></script>
+    <script src="./alien/alien.js"></script>
+    <script src="./alien/alienT1.js"></script>
     
-    <script src="./alienShotBehaviour.js"></script>
-    <script src="./alienShot.js"></script>
+    <script src="./alien/alienShotBehaviour.js"></script>
+    <script src="./alien/alienShot.js"></script>
 
-    <script src="./laserBehaviour.js"></script>
-    <script src="./laser.js"></script>
+    <script src="./laser/laserBehaviour.js"></script>
+    <script src="./laser/laser.js"></script>
 
-    <script src="./shotBehaviour.js"></script>
-    <script src="./shot.js"></script>
+    <script src="./laser/shotBehaviour.js"></script>
+    <script src="./laser/shot.js"></script>
 
     <script src="./app.js"></script>
-    <script src="./mainController.js"></script>
 </head>
 <body ng-keydown="onKeydown($event)" ng-keyup="onlKeyup($event)">
-<canvas id="canvas" width="500" height="500" style="border: 1px gray solid;"></canvas>
-
-
-<p lang="en" ng-app="myApp" ng-controller="MainController">Nothing here {{greeting}}</p>
+    <div style="margin: 50px 50px">
+        <canvas id="canvas" width="500" height="500" style="border: 1px gray solid;margin: 50px 50px"></canvas>
+    </div>
 
 </body>
 </html>

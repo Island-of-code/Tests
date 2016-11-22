@@ -30,7 +30,7 @@
                 }
             };
             resourceCache[url] = false;
-            img.src = url;
+            img.src = "./images/" + url;
         }
     }
 
@@ -53,7 +53,7 @@
         readyCallbacks.push(func);
     }
 
-    window.resources = { 
+    return resourceHelper = { 
         load: load,
         get: get,
         onReady: onReady,

@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-function GameDataContext(ctx, canvasElement) {
+function GameContext(ctx, canvasElement) {
 
     this.ctx = ctx;
     this.canvasHeight = canvasElement.height;
@@ -10,5 +10,9 @@ function GameDataContext(ctx, canvasElement) {
         shots: [],
         aliens: [],
         alienShots: []
+    };
+    this.player = {
+        lives: 3,
+        score: 0
     };
 }

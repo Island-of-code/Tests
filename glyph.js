@@ -6,18 +6,16 @@ function Glyph(gameContext) {
     this.sprite = null;
     this.frames = [0];
 
-    this.render = function () {
-
-        if (this.destroy) {
-            return;
-        }
-
-        this.currentSprite.x = this.x;
-        this.currentSprite.y = this.y;
-        this.currentSprite.frames = this.frames;
-        this.currentSprite.render();
-    };
-
-
 }
+
+Glyph.prototype.render = function() {
+
+    if (this.destroy)
+        return;
+
+    this.currentSprite.x = this.x;
+    this.currentSprite.y = this.y;
+    this.currentSprite.frames = this.frames;
+    this.currentSprite.render();
+};
 

@@ -8,15 +8,14 @@ function ShotBehaviour() {
 
 ShotBehaviour.prototype.update = function (gameContext, shot, input) {
 
-
-
     
-        shot.y -= 2;
+    
+        shot.y -= 4;
         if (shot.y < 0)
             shot.destroy = true;
 
         gameContext.glyphsTree.aliens.some(function (alien) {
-            if (glyphHelper.macroCollision(shot, alien)) {
+            if (geometryHelper.checkCollision(shot, alien)) {
                 alien.explosion();
                 shot.destroy = true;
                 return true;
@@ -24,7 +23,7 @@ ShotBehaviour.prototype.update = function (gameContext, shot, input) {
         });
         
         gameContext.glyphsTree.alienShots.some(function (alienShot) {
-            if (glyphHelper.macroCollision(shot, alienShot)) {
+            if (geometryHelper.checkCollision(shot, alienShot)) {
                 alienShot.destroy = true;
                 shot.destroy = true;
                 return true;
