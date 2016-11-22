@@ -5,7 +5,7 @@ function AlienShotBehaviour() {
 
 }
 
-AlienShotBehaviour.prototype.update = function (gameContext, alienShot, input) {
+AlienShotBehaviour.prototype.update = function (gameContext, alienShot) {
 
     alienShot.y += 1;
     //console.log("y=" + alienShot.y);

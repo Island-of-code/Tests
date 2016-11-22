@@ -1,6 +1,6 @@
 "use strict";
 
-var geometryHelper = (function () {
+var resourceHelper = (function () {
     var resourceCache = {};
     var loading = [];
     var readyCallbacks = [];

@@ -39,8 +39,8 @@ function Laser(gameContext) {
 
     this.frames = this.currentSprite.frames;
 
-    this.handleInput = function(input) {
-        Laser.behaviour.update(gameContext, self, input);
+    this.handleInput = function() {
+        Laser.behaviour.update(gameContext, self);
     }
 
     this.update = function (dt) {

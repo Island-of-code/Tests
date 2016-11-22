@@ -30,8 +30,8 @@ function Alien(gameContext, x, y, width, height) {
             null,
             true);
 
-    this.handleInput = function(input) {
-        Alien.behaviour.update(gameContext, self, input);
+    this.handleInput = function() {
+        Alien.behaviour.update(gameContext, self);
     }
 
     this.update = function (dt) {

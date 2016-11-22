@@ -1,11 +1,10 @@
 ﻿"use strict";
 
-function AlienBehaviour(alien) {
-
+function AlienBehaviour() {
 
 }
 
-AlienBehaviour.prototype.update = function (gameContext, alien, input)
+AlienBehaviour.prototype.update = function (gameContext, alien)
 {
     if ((Date.now() - alien.lastShotTime) > Math.random() * 1000000) {
 

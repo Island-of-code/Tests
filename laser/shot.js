@@ -27,8 +27,8 @@ function Shot(gameContext, x, y) {
 
     this.frames = this.currentSprite.frames;
 
-    this.handleInput = function (input) {
-        Shot.behaviour.update(gameContext, self, input);
+    this.handleInput = function () {
+        Shot.behaviour.update(gameContext, self);
     }
 
     this.update = function (dt) {

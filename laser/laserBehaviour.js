@@ -4,17 +4,17 @@ function LaserBehaviour() {
 
 }
 
-LaserBehaviour.prototype.update = function (gameContext, laser, input) {
+LaserBehaviour.prototype.update = function (gameContext, laser) {
 
-    if (input.isDown('LEFT')) {
-        laser.x += input.laser.dx;
+    if (inputController.input.laser.dx) {
+        laser.x += inputController.input.laser.dx;
         laser.setMovingState(true);
     }
     else
         laser.setMovingState(false);
 
 
-    if (input.shot) {
+    if (inputController.input.shot) {
 
         if ((Date.now() - laser.lastShotTime) > 300) {
 
@@ -22,5 +22,4 @@ LaserBehaviour.prototype.update = function (gameContext, laser, input) {
             laser.lastShotTime = Date.now();
         }
     }
-
 }

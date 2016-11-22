@@ -26,48 +26,48 @@ function Game(canvasElement) {
     var backgroundPattern = ctx.createPattern(resourceHelper.get('darkPurple.png'), 'repeat');
     var fps = 0;
 
-    eventAggregator.on("rightDown.happens",
-        function () {
-            input.rightDown = 1;
-            input.laser.dx = 1;
-        });
+    //eventAggregator.on("rightDown.happens",
+    //    function () {
+    //        input.rightDown = 1;
+    //        input.laser.dx = 1;
+    //    });
 
-    eventAggregator.on("rightUp.happens",
-        function () {
-            input.laser.dx = 0;
-            input.rightDown = 0;
+    //eventAggregator.on("rightUp.happens",
+    //    function () {
+    //        input.laser.dx = 0;
+    //        input.rightDown = 0;
 
-            if (input.leftDown)
-                input.laser.dx = -1;
-        });
+    //        if (input.leftDown)
+    //            input.laser.dx = -1;
+    //    });
 
-    eventAggregator.on("leftDown.happens",
-        function () {
-            input.laser.dx = -1;
-            input.leftDown = 1;
+    //eventAggregator.on("leftDown.happens",
+    //    function () {
+    //        input.laser.dx = -1;
+    //        input.leftDown = 1;
 
 
-        });
+    //    });
 
-    eventAggregator.on("leftUp.happens",
-        function () {
-            input.laser.dx = 0;
-            input.leftDown = 0;
+    //eventAggregator.on("leftUp.happens",
+    //    function () {
+    //        input.laser.dx = 0;
+    //        input.leftDown = 0;
 
-            if (input.rightDown)
-                input.laser.dx = 1;
+    //        if (input.rightDown)
+    //            input.laser.dx = 1;
 
-        });
+    //    });
 
-    eventAggregator.on("upUp.happens",
-        function () {
-            input.shot = false;
-        });
+    //eventAggregator.on("upUp.happens",
+    //    function () {
+    //        input.shot = false;
+    //    });
 
-    eventAggregator.on("upDown.happens",
-        function () {
-            input.shot = true;
-        });
+    //eventAggregator.on("upDown.happens",
+    //    function () {
+    //        input.shot = true;
+    //    });
 
     this.run = function () {
 
@@ -132,14 +132,14 @@ function Game(canvasElement) {
     }
     function handleInputGlyphArray(glyphs) {
         for (var i = 0; i < glyphs.length; i++) {
-            glyphs[i].handleInput(input);
+            glyphs[i].handleInput();
         }
     }
 
 
     function handleInput() {
 
-        glyphsTree.laser.handleInput(input);
+        glyphsTree.laser.handleInput();
         handleInputGlyphArray(glyphsTree.shots);
         handleInputGlyphArray(glyphsTree.aliens);
         handleInputGlyphArray(glyphsTree.alienShots);

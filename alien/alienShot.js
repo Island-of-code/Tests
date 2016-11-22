@@ -28,8 +28,8 @@ function AlienShot(gameContext, x, y) {
 
 
 
-    this.handleInput = function(input) {
-        AlienShot.behaviour.update(gameContext, self, input);
+    this.handleInput = function() {
+        AlienShot.behaviour.update(gameContext, self);
     }
 
     this.update = function (dt) {
