@@ -1,12 +1,25 @@
 "use strict";
 
 var canvasElement = document.getElementById("canvas");
+var game;
 
 resourceHelper.onReady(function() {
 
-    var game = new Game(canvasElement);
-    game.run();
+    game = new Game(canvasElement);
+    //game.startNewGame();
 });
+
+function startNewGame() {
+    game.startNewGame();
+}
+
+function pauseGame() {
+    game.pauseGame();
+}
+
+function resumeGame() {
+    game.resumeGame();
+}
 
 resourceHelper.load([
     "laser.png",
@@ -16,6 +29,7 @@ resourceHelper.load([
     "enemyBlack2.png",
     "laserGreen11.png",
     "playerShip3_green_small.png",
-    "exploer.png"
+    "exploer.png",
+    "star4.png"
 ]);
         

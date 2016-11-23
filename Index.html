@@ -1,16 +1,23 @@
 ﻿<!doctype html>
-<html>
+<html style="margin: 0; padding: 0; height: 100%; width: 100%;">
 <head>
     <meta charset="utf-8">
     <title>Space Invaders</title>
    
 </head>
-<body>
-    <div style="margin: 50px 50px">
-        <canvas id="canvas" width="500" height="500" style="border: 1px gray solid;margin: 50px 50px"></canvas>
+<body style="margin: 0; padding: 0; height: 100%; width: 100%;">
+    <div style="display: flex; height: 100%; width: 100%; align-items: center; justify-content: center; background-color: black ">
+        <canvas id="canvas" width="500" height="500" style="border: 1px gray solid; height: 500px; width: 500px;">
+        </canvas>
+        <div style="position: absolute; display: flex;align-items: center; ">
+            <div>
+                <button style="width: 100px" onclick="pauseGame()">Pause</button><p/>
+                <button style="width: 100px" onclick="resumeGame()">Resume</button><p/>
+                <button style="width: 100px" onclick="startNewGame()">New Game</button><p />
+            </div>
+        </div>
     </div>
-    <!--<script src="./angular/angular.js"></script>
-    <script src="./angular-external/angular-event-aggregator.js"></script>-->
+
 
     <script src="./helpers/geometryHelper.js"></script>
     <script src="./helpers/resourceHelper.js"></script>

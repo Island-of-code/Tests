@@ -6,14 +6,19 @@ function Glyph(gameContext, x, y, width, height) {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.destroy = false;
+    this.isDeleted = false;
     this.sprite = null;
     this.frames = [0];
+    this.isDeleted = false;
+}
+
+Glyph.prototype.delete = function () {
+    this.isDeleted = true;
 }
 
 Glyph.prototype.render = function() {
 
-    if (this.destroy)
+    if (this.isDeleted)
         return;
 
     this.currentSprite.x = this.x;

@@ -49,8 +49,14 @@ function Laser(gameContext) {
     }
 
     this.explosion = function() {
+        var self = this;
         this.currentSprite = this.explosionSprite;
         this.frames = this.explosionSprite.frames;
+        this.currentSprite.doneEvent = function () {
+            self.delete();
+            if (self.destroyEvent)
+                self.destroyEvent();
+        }
     }
 
     this.setMovingState = function(state) {

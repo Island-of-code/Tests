@@ -20,18 +20,72 @@ function Game(canvasElement) {
     ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
     ctx.font = "normal 16pt Arial";
-
-    var gameContext = new GameContext(ctx, canvasElement);
-    var glyphsTree = gameContext.glyphsTree;
     var backgroundPattern = ctx.createPattern(resourceHelper.get("darkPurple.png"), "repeat");
+
+    var gameContext = new GameContext(ctx);;
+    var glyphsTree = null;
     var fps = 0;
+    var gameOver = false;
+    var gamePause = false;
+    var player = null;
 
-    this.run = function() {
+    renderCanvas();
 
-        addAliens(20);
-        glyphsTree.laser = new Laser(gameContext);
-        renderLoop();
+    this.pauseGame = function () {
+
+        gamePause = true;
+
+    }
+
+    this.resumeGame = function () {
+        if (gamePause) {
+            gamePause = false;
+            renderLoop();
+        }
+    }
+
+    this.startNewGame = function() {
+
+        gameOver = true;
+
+        window.setTimeout(function() {
+            
+            gameContext = new GameContext(ctx);
+            glyphsTree = gameContext.glyphsTree;
+
+            gameOver = false;
+            gamePause = false;
+
+            player = {
+                lives: 3,
+                score: 0
+            };
+
+            addAliens(20);
+            initLaser();
+            renderLoop();
+
+        }, 100);
+
+        
+        
     };
+
+
+    function initLaser() {
+
+        if (player.lives === 0) {
+            gameOver = true;
+            return;
+        }
+
+        var laser = new Laser(gameContext);
+        player.lives -= 1;
+        laser.destroyEvent = function () {
+                initLaser();
+        }
+        glyphsTree.laser = laser;
+    }
 
 
     function addAliens(count) {
@@ -55,6 +109,9 @@ function Game(canvasElement) {
             elem.forEach(function(item, indexX) {
 
                 var alien = new AlienT1(gameContext, x - (AlienT1.width / 2), y);
+                alien.destroyEvent = function() {
+                    player.score += 10;
+                }
                 glyphsTree.aliens.push(alien);
                 x += step;
             });
@@ -64,19 +121,19 @@ function Game(canvasElement) {
 
     function updateGlyphArray(glyphs, dt) {
 
-        var forDelete = [];
+        var deleted = [];
 
         for (var i = 0; i < glyphs.length; i++) {
 
-            if (glyphs[i].destroy) {
-                forDelete.push(glyphs[i]);
+            if (glyphs[i].isDeleted) {
+                deleted.push(glyphs[i]);
             } else {
                 glyphs[i].update(dt);
             }
         }
         //console.log("destroy=" + forDelete.length);
-        for (var i = 0; i < forDelete.length; i++) {
-            glyphs.splice(glyphs.indexOf(forDelete[i]), 1);
+        for (var i = 0; i < deleted.length; i++) {
+            glyphs.splice(glyphs.indexOf(deleted[i]), 1);
         }
     }
 
@@ -91,8 +148,7 @@ function Game(canvasElement) {
             glyphs[i].handleInput();
         }
     }
-
-
+    
     function handleInput() {
 
         glyphsTree.laser.handleInput();
@@ -123,7 +179,7 @@ function Game(canvasElement) {
         ctx.fillRect(0, 0, gameContext.canvasWidth, gameContext.canvasHeight);
     }
 
-    var lastTime = Date.now();;
+    var lastTime = Date.now();
 
     function renderLoop() {
 
@@ -139,7 +195,13 @@ function Game(canvasElement) {
         var delta = (now - lastTime) / 1000;
         fps = Math.round(1 / delta);
         gameContext.ctx.fillStyle = "Black";
-        gameContext.ctx.fillText(fps + " fps", 10, 26);
+        gameContext.ctx.fillText(fps + " fps", gameContext.canvasWidth - 70, 26);
+
+        gameContext.ctx.fillText("score: " + player.score, 10, 26);
+        gameContext.ctx.fillText("lives :" + player.lives, 10, 46);
+
+        if (gameOver || gamePause)
+            return;
 
         lastTime = now;
         requestAnimFrame(renderLoop);

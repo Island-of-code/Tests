@@ -1,18 +1,15 @@
 ﻿"use strict";
 
-function GameContext(ctx, canvasElement) {
+function GameContext(ctx) {
 
     this.ctx = ctx;
-    this.canvasHeight = canvasElement.height;
-    this.canvasWidth = canvasElement.width;
+    this.canvasHeight = ctx.canvas.height;
+    this.canvasWidth = ctx.canvas.width;
     this.glyphsTree = {
         laser: null,
         shots: [],
         aliens: [],
         alienShots: []
     };
-    this.player = {
-        lives: 3,
-        score: 0
-    };
+    
 }

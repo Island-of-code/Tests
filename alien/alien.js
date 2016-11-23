@@ -18,7 +18,7 @@ function Alien(gameContext, x, y, width, height) {
     this.explosionSprite = new Sprite(gameContext.ctx,
             "exploer.png",
             [0, 117],
-            [39, 32],
+            [39, 39],
             16,
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             null,
@@ -38,8 +38,11 @@ Alien.prototype.setMovingState = function (deltaX, deltaY) {
 
 Alien.prototype.explosion = function () {
     this.currentSprite = this.explosionSprite;
+    var self = this;
     this.currentSprite.doneEvent = function () {
-        self.destroy = true;
+        self.delete();
+        if (self.destroyEvent)
+            self.destroyEvent();
     }
     this.frames = this.explosionSprite.frames;
 }
