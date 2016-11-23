@@ -27,8 +27,8 @@ Sprite.prototype.render = function() {
 
         if (this.once && idx >= max) {
             this.done = true;
-            if (this.doneEvent)
-                this.doneEvent();
+            if (this.onDoneEvent)
+                this.onDoneEvent();
             return;
         }
     } else {

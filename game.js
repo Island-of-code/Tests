@@ -20,74 +20,74 @@ function Game(canvasElement) {
     ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
     ctx.font = "normal 16pt Arial";
-    var backgroundPattern = ctx.createPattern(resourceHelper.get("darkPurple.png"), "repeat");
 
+    var backgroundPattern = ctx.createPattern(resourceHelper.get("darkPurple.png"), "repeat");
     var gameContext = new GameContext(ctx);;
     var glyphsTree = null;
     var fps = 0;
-    var gameOver = false;
-    var gamePause = false;
     var player = null;
+    var self = this;
+
+    this.isGameOver = false;
+    this.isGamePause = false;
 
     renderCanvas();
 
     this.pauseGame = function () {
-
-        gamePause = true;
-
+        this.isGamePause = true;
     }
 
     this.resumeGame = function () {
-        if (gamePause) {
-            gamePause = false;
+        if (this.isGamePause && !this.isGameOver) {
+            this.isGamePause = false;
             renderLoop();
         }
     }
 
     this.startNewGame = function() {
 
-        gameOver = true;
+        this.isGameOver = true;
 
         window.setTimeout(function() {
             
             gameContext = new GameContext(ctx);
             glyphsTree = gameContext.glyphsTree;
 
-            gameOver = false;
-            gamePause = false;
+            self.isGameOver = false;
+            self.isGamePause = false;
 
             player = {
                 lives: 3,
-                score: 0
+                score: 0,
+                level: 1
             };
 
             addAliens(20);
-            initLaser();
+            repareLaser();
             renderLoop();
 
         }, 100);
-
-        
-        
+      
     };
-
-
-    function initLaser() {
+    
+    function repareLaser() {
 
         if (player.lives === 0) {
-            gameOver = true;
+            self.isGameOver = true;
+            if (self.onGameOverEvent) {
+                self.onGameOverEvent();
+            }
             return;
         }
 
         var laser = new Laser(gameContext);
         player.lives -= 1;
-        laser.destroyEvent = function () {
-                initLaser();
+        laser.onDestroyEvent = function () {
+                repareLaser();
         }
         glyphsTree.laser = laser;
     }
-
-
+    
     function addAliens(count) {
 
         var map = [
@@ -109,7 +109,7 @@ function Game(canvasElement) {
             elem.forEach(function(item, indexX) {
 
                 var alien = new AlienT1(gameContext, x - (AlienT1.width / 2), y);
-                alien.destroyEvent = function() {
+                alien.onDestroyEvent = function() {
                     player.score += 10;
                 }
                 glyphsTree.aliens.push(alien);
@@ -199,8 +199,9 @@ function Game(canvasElement) {
 
         gameContext.ctx.fillText("score: " + player.score, 10, 26);
         gameContext.ctx.fillText("lives :" + player.lives, 10, 46);
+        gameContext.ctx.fillText("level :" + player.level, 10, 66);
 
-        if (gameOver || gamePause)
+        if (self.isGameOver || self.isGamePause)
             return;
 
         lastTime = now;

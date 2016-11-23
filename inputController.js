@@ -33,7 +33,7 @@ var inputController = (function() {
         default:
         }
 
-        input.key = key;
+        input.key = event.key;
     }
 
     function handleUpKey(event, status) {
@@ -71,7 +71,7 @@ var inputController = (function() {
             break;
         default:
         }
-        input.key = key;
+        input.key = event.key;
     }
 
     document.addEventListener("keydown",

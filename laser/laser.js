@@ -52,10 +52,10 @@ function Laser(gameContext) {
         var self = this;
         this.currentSprite = this.explosionSprite;
         this.frames = this.explosionSprite.frames;
-        this.currentSprite.doneEvent = function () {
+        this.currentSprite.onDoneEvent = function () {
             self.delete();
-            if (self.destroyEvent)
-                self.destroyEvent();
+            if (self.onDestroyEvent)
+                self.onDestroyEvent();
         }
     }
 

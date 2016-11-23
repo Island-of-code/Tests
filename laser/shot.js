@@ -37,7 +37,7 @@ function Shot(gameContext, x, y) {
 Shot.prototype.explosion = function () {
     this.currentSprite = this.explosionSprite;
     var self = this;
-    this.currentSprite.doneEvent = function () {
+    this.currentSprite.onDoneEvent = function () {
         self.delete();
     }
     this.y -= 6;

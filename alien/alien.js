@@ -39,10 +39,10 @@ Alien.prototype.setMovingState = function (deltaX, deltaY) {
 Alien.prototype.explosion = function () {
     this.currentSprite = this.explosionSprite;
     var self = this;
-    this.currentSprite.doneEvent = function () {
+    this.currentSprite.onDoneEvent = function () {
         self.delete();
-        if (self.destroyEvent)
-            self.destroyEvent();
+        if (self.onDestroyEvent)
+            self.onDestroyEvent();
     }
     this.frames = this.explosionSprite.frames;
 }
