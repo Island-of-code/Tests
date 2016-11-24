@@ -6,7 +6,7 @@ function LaserBehaviour() {
 
 LaserBehaviour.prototype.update = function (gameContext, laser) {
 
-    if (inputController.event.laser.dx) {
+    if (inputController.event.laser.dx && laser.x > -10 && laser.x < gameContext.canvasWidth + 10 ) {
         laser.x += inputController.event.laser.dx;
         laser.setMovingState(true);
     }

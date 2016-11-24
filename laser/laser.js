@@ -51,21 +51,23 @@ function Laser(gameContext) {
     }
 
     this.explosion = function() {
-        var self = this;
+
         this.currentSprite = this.explosionSprite;
-        this.frames = this.explosionSprite.frames;
-        this.currentSprite.onDoneEvent = function () {
+        var self = this;
+        this.explosionSprite.onDoneEvent = function () {
             self.delete();
             if (self.onDestroyEvent)
                 self.onDestroyEvent();
         }
+
+        this.frames = this.explosionSprite.frames;
     }
 
     this.setMovingState = function(state) {
         if (state === true)
-            this.frames = this._fixFrames;
+            this.frames = this.currentSprite.frames;
         else
-            this.frames = this._fixFrames;
+            this.frames = this.currentSprite.frames;
     }
 
 }

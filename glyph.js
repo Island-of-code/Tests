@@ -7,7 +7,6 @@ function Glyph(gameContext, pos, size) {
     this.width = size[0];
     this.height = size[1];
     this.isDeleted = false;
-    this.sprite = null;
     this.frames = [0];
     this.isDeleted = false;
 }

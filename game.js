@@ -33,43 +33,42 @@ function Game(canvasElement) {
 
     renderCanvas();
 
-    this.pauseGame = function () {
+    this.pauseGame = function() {
         this.isGamePause = true;
-    }
-
-    this.resumeGame = function () {
+    };
+    this.resumeGame = function() {
         if (this.isGamePause && !this.isGameOver) {
             this.isGamePause = false;
             renderLoop();
         }
-    }
-
+    };
     this.startNewGame = function() {
 
         this.isGameOver = true;
 
         window.setTimeout(function() {
-            
-            gameContext = new GameContext(ctx);
-            glyphsTree = gameContext.glyphsTree;
 
-            self.isGameOver = false;
-            self.isGamePause = false;
+                gameContext = new GameContext(ctx);
+                glyphsTree = gameContext.glyphsTree;
 
-            player = {
-                lives: 3,
-                score: 0,
-                level: 1
-            };
+                self.isGameOver = false;
+                self.isGamePause = false;
 
-            addAliens(20);
-            repareLaser();
-            renderLoop();
+                player = {
+                    lives: 3,
+                    score: 0,
+                    level: 1
+                };
 
-        }, 100);
-      
+                addAliens(20);
+                repareLaser();
+                renderLoop();
+
+            },
+            100);
+
     };
-    
+
     function repareLaser() {
 
         if (player.lives === 0) {
@@ -82,12 +81,12 @@ function Game(canvasElement) {
 
         var laser = new Laser(gameContext);
         player.lives -= 1;
-        laser.onDestroyEvent = function () {
-                repareLaser();
-        }
+        laser.onDestroyEvent = function() {
+            repareLaser();
+        };
         glyphsTree.laser = laser;
     }
-    
+
     function clearEnemies() {
         glyphsTree.aliens = [];
         glyphsTree.shots = [];
@@ -96,19 +95,19 @@ function Game(canvasElement) {
 
     function createAlienByType(type, x, y) {
         switch (type) {
-            case 1:
-                return new Alien(gameContext, [x, y], [30, 24], { name: "enemyBlack2.png" });
-            case 2:
-                return new Alien(gameContext, [x, y], [30, 31], { name: "enemyBlue4.png" });
-            case 3:
-                return new Alien(gameContext, [x, y], [40, 33], { name: "enemyGreen3.png" });
-            case 4:
-                return new Alien(gameContext, [x, y], [35, 30], { name: "enemyGreen5.png" });
-            case 5:
-                return new Alien(gameContext, [x, y], [30, 27], { name: "enemyRed1.png" });
-                
-            default:
-                throw new Error("Alien type is bad");
+        case 1:
+            return new Alien(gameContext, [x, y], [30, 24], { name: "enemyBlack2.png" });
+        case 2:
+            return new Alien(gameContext, [x, y], [30, 31], { name: "enemyBlue4.png" });
+        case 3:
+            return new Alien(gameContext, [x, y], [40, 33], { name: "enemyGreen3.png" });
+        case 4:
+            return new Alien(gameContext, [x, y], [35, 30], { name: "enemyGreen5.png" });
+        case 5:
+            return new Alien(gameContext, [x, y], [30, 27], { name: "enemyRed1.png" });
+
+        default:
+            throw new Error("Alien type is bad");
         }
     }
 
@@ -125,14 +124,14 @@ function Game(canvasElement) {
         for (var i = 0; i < 5; i++) {
             var alienType = generateRandomNumber(5);
             var row = [];
-            for (var j = 0; j < generateRandomNumber(7) ; j++) {
+            for (var j = 0; j < generateRandomNumber(7); j++) {
                 row.push(alienType);
             }
             result.push(row);
         }
         return result;
     }
-    
+
     function startNextLevel() {
         player.level++;
         clearEnemies();
@@ -149,18 +148,18 @@ function Game(canvasElement) {
             y = y + lastHeight + 10;
             var step = gameContext.canvasWidth / (elem.length + 1);
             var x = step;
-            
+
             elem.forEach(function(item) {
 
-                var alien = createAlienByType(item, 0, y);//new AlienT1(gameContext, x - (AlienT1.width / 2), y);
+                var alien = createAlienByType(item, 0, y); //new AlienT1(gameContext, x - (AlienT1.width / 2), y);
                 alien.x = x - (alien.width / 2);
 
-                alien.onDestroyEvent = function () {
+                alien.onDestroyEvent = function() {
                     player.score += 10;
                     if (glyphsTree.aliens.every(item => item.isDeleted)) {
                         startNextLevel();
                     }
-                }
+                };
                 glyphsTree.aliens.push(alien);
                 x += step;
                 lastHeight = alien.height;
@@ -172,33 +171,30 @@ function Game(canvasElement) {
     function updateGlyphArray(glyphs, dt) {
 
         var deleted = [];
+        glyphs.forEach(item => {
 
-        for (var i = 0; i < glyphs.length; i++) {
-
-            if (glyphs[i].isDeleted) {
-                deleted.push(glyphs[i]);
-            } else {
-                glyphs[i].update(dt);
-            }
-        }
-        //console.log("destroy=" + forDelete.length);
-        for (var i = 0; i < deleted.length; i++) {
-            glyphs.splice(glyphs.indexOf(deleted[i]), 1);
-        }
+            if (item.isDeleted) 
+                deleted.push(item);
+             else 
+                item.update(dt);
+        });
+        deleted.forEach(item => {
+            glyphs.splice(glyphs.indexOf(item), 1);
+        });
     }
 
     function renderGlyphArray(glyphs) {
-        for (var i = 0; i < glyphs.length; i++) {
-            glyphs[i].render();
-        }
+        glyphs.forEach(item => {
+            item.render();
+        });
     }
 
     function handleInputGlyphArray(glyphs) {
-        for (var i = 0; i < glyphs.length; i++) {
-            glyphs[i].handleInput();
-        }
+        glyphs.forEach(item => {
+            item.handleInput();
+        });
     }
-    
+
     function handleInput() {
 
         glyphsTree.laser.handleInput();
@@ -244,12 +240,12 @@ function Game(canvasElement) {
         //display FPS
         var delta = (now - lastTime) / 1000;
         fps = Math.round(1 / delta);
-        gameContext.ctx.fillStyle = "Black";
+        gameContext.ctx.fillStyle = "#BB94CB";
         gameContext.ctx.fillText(fps + " fps", gameContext.canvasWidth - 70, 26);
 
-        gameContext.ctx.fillText("score: " + player.score, 10, 26);
-        gameContext.ctx.fillText("lives: " + player.lives, 120, 26);
-        gameContext.ctx.fillText("level: " + player.level, 230, 26);
+        gameContext.ctx.fillText("Score: " + player.score, 10, 26);
+        gameContext.ctx.fillText("Lives: " + player.lives, 120, 26);
+        gameContext.ctx.fillText("Level: " + player.level, 230, 26);
 
         if (self.isGameOver || self.isGamePause)
             return;

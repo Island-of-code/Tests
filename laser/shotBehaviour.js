@@ -7,8 +7,8 @@ function ShotBehaviour() {
 ShotBehaviour.prototype.update = function(gameContext, shot) {
 
     shot.y -= shot.dy;
-    if (shot.y < 0)
-        shot.isDeleted = true;
+    if (shot.y < -20)
+        shot.delete();
 
     gameContext.glyphsTree.aliens.some(function(alien) {
         if (geometryHelper.checkCollision(shot, alien)) {
