@@ -28,13 +28,35 @@ function Game(canvasElement) {
     var player = null;
     var self = this;
 
-    this.isGameOver = false;
-    this.isGamePause = false;
-
-    var alienGroupeBehaviour = new AlienGroupeBehaviour(gameContext);
+    var alienGroupeBehaviour = null;
+    var isGameOver = false;
+    var isGamePause = false;
+    var lastTime = Date.now();
 
     renderCanvas();
 
+    Object.defineProperty(this, "isGameOver", {
+        set: function (value) {
+            isGameOver = value;
+            if (this.onGameOverEvent)
+                this.onGameOverEvent();
+        },
+        get: function () {
+            return isGameOver;
+        }
+    });
+
+    Object.defineProperty(this, "isGamePause", {
+        set: function (value) {
+            isGamePause = value;
+            if (this.onGamePauseEvent)
+                this.onGamePauseEvent();
+        },
+        get: function () {
+            return isGamePause;
+        }
+    });
+    
     this.pauseGame = function() {
         this.isGamePause = true;
     };
@@ -46,16 +68,19 @@ function Game(canvasElement) {
     };
     this.startNewGame = function() {
 
-        this.isGameOver = true;
+        isGameOver = true;
 
         window.setTimeout(function() {
 
                 gameContext = new GameContext(ctx);
                 glyphsTree = gameContext.glyphsTree;
                 alienGroupeBehaviour = new AlienGroupeBehaviour(gameContext);
-            
-                self.isGameOver = false;
-                self.isGamePause = false;
+                alienGroupeBehaviour.onGameOverEvent = function() {
+                    self.isGameOver = true;
+                }
+
+                isGameOver = false;
+                isGamePause = false;
 
                 player = {
                     lives: 3,
@@ -76,9 +101,6 @@ function Game(canvasElement) {
 
         if (player.lives === 0) {
             self.isGameOver = true;
-            if (self.onGameOverEvent) {
-                self.onGameOverEvent();
-            }
             return;
         }
 
@@ -227,8 +249,6 @@ function Game(canvasElement) {
         ctx.fillRect(0, 0, gameContext.canvasWidth, gameContext.canvasHeight);
     }
 
-    var lastTime = Date.now();
-
     function renderLoop() {
 
         var now = Date.now();
@@ -251,7 +271,7 @@ function Game(canvasElement) {
 
         gameContext.ctx.fillRect(5, 35, gameContext.canvasWidth - 10, 1);
 
-        if (self.isGameOver || self.isGamePause)
+        if (isGameOver || isGamePause)
             return;
 
         lastTime = now;
