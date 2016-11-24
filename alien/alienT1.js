@@ -8,18 +8,8 @@ AlienT1.behaviour = new AlienBehaviour();
 
 function AlienT1(gameContext, x, y) {
     
-    Alien.call(this, gameContext, x, y, AlienT1.width, AlienT1.height);
+    Alien.call(this, gameContext, { x: x, y: y }, { width: AlienT1.width, height: AlienT1.height }, 
+        { name: "enemyBlack2.png" });
 
-    this.currentSprite = new Sprite(gameContext.ctx,
-            "enemyBlack2.png",
-            [0, 0],
-            [this.width, this.height],
-            16,
-            [0],
-            null,
-            false);
-
-    this.frames = this.currentSprite.frames;
-   
 }
 

@@ -88,32 +88,82 @@ function Game(canvasElement) {
         glyphsTree.laser = laser;
     }
     
-    function addAliens(count) {
+    function clearEnemies() {
+        glyphsTree.aliens = [];
+        glyphsTree.shots = [];
+        glyphsTree.alienShots = [];
+    }
 
-        var map = [
-            [1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1],
-            [1]
-        ];
+    function createAlienByType(type, x, y) {
+        switch (type) {
+            case 1:
+                return new Alien(gameContext, [x, y], [30, 24], { name: "enemyBlack2.png" });
+            case 2:
+                return new Alien(gameContext, [x, y], [30, 31], { name: "enemyBlue4.png" });
+            case 3:
+                return new Alien(gameContext, [x, y], [40, 33], { name: "enemyGreen3.png" });
+            case 4:
+                return new Alien(gameContext, [x, y], [35, 30], { name: "enemyGreen5.png" });
+            case 5:
+                return new Alien(gameContext, [x, y], [30, 27], { name: "enemyRed1.png" });
+                
+            default:
+                throw new Error("Alien type is bad");
+        }
+    }
 
-        map.forEach(function(elem, indexY) {
+    function generateRandomNumber(max) {
 
-            var y = (indexY * (AlienT1.height + 10));
+        var number = Math.floor((Math.random() * 10) + 1);
+        while (number > max || number === 0)
+            number = Math.floor((Math.random() * 10) + 1);
+        return number;
+    }
+
+    function generateAliensMap() {
+        var result = [];
+        for (var i = 0; i < 5; i++) {
+            var alienType = generateRandomNumber(5);
+            var row = [];
+            for (var j = 0; j < generateRandomNumber(7) ; j++) {
+                row.push(alienType);
+            }
+            result.push(row);
+        }
+        return result;
+    }
+    
+    function startNextLevel() {
+        player.level++;
+        clearEnemies();
+        addAliens();
+    }
+
+    function addAliens() {
+
+        var map = generateAliensMap();
+        var lastHeight = 10;
+        var y = 15;
+        map.forEach(function(elem) {
+
+            y = y + lastHeight + 10;
             var step = gameContext.canvasWidth / (elem.length + 1);
             var x = step;
+            
+            elem.forEach(function(item) {
 
-            elem.forEach(function(item, indexX) {
+                var alien = createAlienByType(item, 0, y);//new AlienT1(gameContext, x - (AlienT1.width / 2), y);
+                alien.x = x - (alien.width / 2);
 
-                var alien = new AlienT1(gameContext, x - (AlienT1.width / 2), y);
-                alien.onDestroyEvent = function() {
+                alien.onDestroyEvent = function () {
                     player.score += 10;
+                    if (glyphsTree.aliens.every(item => item.isDeleted)) {
+                        startNextLevel();
+                    }
                 }
                 glyphsTree.aliens.push(alien);
                 x += step;
+                lastHeight = alien.height;
             });
 
         });
@@ -198,8 +248,8 @@ function Game(canvasElement) {
         gameContext.ctx.fillText(fps + " fps", gameContext.canvasWidth - 70, 26);
 
         gameContext.ctx.fillText("score: " + player.score, 10, 26);
-        gameContext.ctx.fillText("lives :" + player.lives, 10, 46);
-        gameContext.ctx.fillText("level :" + player.level, 10, 66);
+        gameContext.ctx.fillText("lives: " + player.lives, 120, 26);
+        gameContext.ctx.fillText("level: " + player.level, 230, 26);
 
         if (self.isGameOver || self.isGamePause)
             return;

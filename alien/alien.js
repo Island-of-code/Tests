@@ -1,20 +1,27 @@
 ﻿"use strict";
 
-Alien.width = 5;
-Alien.height = 10;
 
 Alien.prototype = Object.create(Glyph.prototype);
 Alien.behaviour = new AlienBehaviour();
 
-function Alien(gameContext, x, y, width, height) {
+function Alien(gameContext, pos, size, spriteOptions) {
     
-    Glyph.call(this, gameContext, x, y, width, height);
+    Glyph.call(this, gameContext, pos, size);
 
     this.lastShotTime = Date.now();
-    this.lastMove = Date.now();
+    this.lastMoveTime = Date.now();
     this.dx = 0;
     this.dy = 0;
     
+    this.currentSprite = new Sprite(gameContext.ctx,
+            spriteOptions.name,
+            [0, 0],
+            [this.width, this.height],
+            16,
+            spriteOptions.frames || [0],
+            null,
+            false);
+
     this.explosionSprite = new Sprite(gameContext.ctx,
             "exploer.png",
             [0, 117],
@@ -24,6 +31,7 @@ function Alien(gameContext, x, y, width, height) {
             null,
             true);
 
+    this.frames = this.currentSprite.frames;
 
 }
 

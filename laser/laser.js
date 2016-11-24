@@ -8,11 +8,13 @@ Laser.behaviour = new LaserBehaviour();
 
 function Laser(gameContext) {
 
-    Glyph.call(this, gameContext);
+    var x = gameContext.canvasWidth / 2;
+    var y = gameContext.canvasHeight - Laser.height;
+
+    Glyph.call(this, gameContext, [x, y], [Laser.width, Laser.height]);
+
     var self = this;
     var ctx = gameContext.ctx;
-    this.x = gameContext.canvasWidth / 2;
-    this.y = gameContext.canvasHeight - Laser.height;
     this.width = Laser.width;
     this.height = Laser.height;
     this.lastShotTime = Date.now();

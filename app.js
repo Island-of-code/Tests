@@ -35,11 +35,15 @@ resourceHelper.load([
     "laserBlue03.png",
     "darkPurple.png",
     "laserRed16.png",
-    "enemyBlack2.png",
     "laserGreen11.png",
     "playerShip3_green_small.png",
     "exploer.png",
-    "star4.png"
+    "star4.png",
+    "enemyBlack2.png",
+    "enemyBlue4.png",
+    "enemyGreen3.png",
+    "enemyGreen5.png",
+    "enemyRed1.png"
 ]);
 
 document.addEventListener("keydown",

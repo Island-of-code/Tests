@@ -8,12 +8,8 @@ AlienShot.behaviour = new AlienShotBehaviour();
 
 function AlienShot(gameContext, x, y) {
     
-    Glyph.call(this, gameContext);
-    this.x = x;
-    this.y = y;
-    this.width = AlienShot.width;
-    this.height = AlienShot.height;
-
+    Glyph.call(this, gameContext, [x, y], [AlienShot.width, AlienShot.height]);
+    
     var ctx = this._gameContext.ctx;
     
     this.currentSprite = new Sprite(ctx,

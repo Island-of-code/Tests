@@ -1,11 +1,11 @@
 ﻿"use strict";
 
-function Glyph(gameContext, x, y, width, height) {
+function Glyph(gameContext, pos, size) {
     this._gameContext = gameContext;
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+    this.x = pos[0];
+    this.y = pos[1];
+    this.width = size[0];
+    this.height = size[1];
     this.isDeleted = false;
     this.sprite = null;
     this.frames = [0];
