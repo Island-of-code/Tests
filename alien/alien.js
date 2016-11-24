@@ -9,9 +9,10 @@ function Alien(gameContext, pos, size, spriteOptions) {
     Glyph.call(this, gameContext, pos, size);
 
     this.lastShotTime = Date.now();
-    this.lastMoveTime = Date.now();
-    this.dx = 0;
-    this.dy = 0;
+    this.lastMoveTimeY = Date.now();
+    this.lastMoveTimeX = Date.now();
+    this._dx = 0;
+    this._dy = 0;
     
     this.currentSprite = new Sprite(gameContext.ctx,
             spriteOptions.name,
@@ -39,10 +40,14 @@ Alien.prototype.handleInput = function () {
     Alien.behaviour.update(this._gameContext, this);
 }
 
-Alien.prototype.setMovingState = function (deltaX, deltaY) {
-    this.dx = deltaX;
-    this.dy = deltaY;
+Alien.prototype.setMovingY = function (deltaY) {
+    this._dy = deltaY;
 }
+
+Alien.prototype.setMovingX = function (deltaX) {
+    this._dx = deltaX;
+}
+
 
 Alien.prototype.explosion = function () {
     this.currentSprite = this.explosionSprite;
@@ -57,21 +62,21 @@ Alien.prototype.explosion = function () {
 
 Alien.prototype.update = function (dt) {
 
-    if (this.dx > 0) {
+    if (this._dx > 0) {
         this.x++;
-        this.dx--;
+        this._dx--;
     }
-    if (this.dx < 0) {
+    if (this._dx < 0) {
         this.x--;
-        this.dx++;
+        this._dx++;
     }
-    if (this.dy > 0) {
+    if (this._dy > 0) {
         this.y++;
-        this.dy--;
+        this._dy--;
     }
-    if (this.dy < 0) {
+    if (this._dy < 0) {
         this.y--;
-        this.dy++;
+        this._dy++;
     }
 
     this.currentSprite.update(dt);

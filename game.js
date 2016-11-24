@@ -22,7 +22,7 @@ function Game(canvasElement) {
     ctx.font = "normal 16pt Century Gothic";
 
     var backgroundPattern = ctx.createPattern(resourceHelper.get("darkPurple.png"), "repeat");
-    var gameContext = new GameContext(ctx);;
+    var gameContext = new GameContext(ctx);
     var glyphsTree = null;
     var fps = 0;
     var player = null;
@@ -30,6 +30,8 @@ function Game(canvasElement) {
 
     this.isGameOver = false;
     this.isGamePause = false;
+
+    var alienGroupeBehaviour = new AlienGroupeBehaviour(gameContext);
 
     renderCanvas();
 
@@ -50,7 +52,8 @@ function Game(canvasElement) {
 
                 gameContext = new GameContext(ctx);
                 glyphsTree = gameContext.glyphsTree;
-
+                alienGroupeBehaviour = new AlienGroupeBehaviour(gameContext);
+            
                 self.isGameOver = false;
                 self.isGamePause = false;
 
@@ -204,6 +207,7 @@ function Game(canvasElement) {
     function updateObjects(dt) {
 
         glyphsTree.laser.update(dt);
+        alienGroupeBehaviour.update(dt);
         updateGlyphArray(glyphsTree.shots, dt);
         updateGlyphArray(glyphsTree.aliens, dt);
         updateGlyphArray(glyphsTree.alienShots, dt);
