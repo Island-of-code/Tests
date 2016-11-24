@@ -68,8 +68,7 @@ function Game(canvasElement) {
     };
     this.startNewGame = function() {
 
-        isGameOver = true;
-
+        isGameOver = true; //stop render loop
         window.setTimeout(function() {
 
                 gameContext = new GameContext(ctx);
