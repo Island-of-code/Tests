@@ -5,14 +5,14 @@
     <title>Space Invaders</title>
     <link rel="stylesheet" media="all" href="./css/game.css">
 </head>
-<body style="margin: 0; padding: 0; height: 100%; width: 100%;">
-    <div style="display: flex; height: 100%; width: 100%; align-items: center; justify-content: center; background-color: black ">
-        <canvas id="canvas" width="500" height="600" style="border: 1px gray solid; height: 600px; width: 500px;">
+<body>
+    <div class="wrap" style="">
+        <canvas id="canvas" width="500" height="600">
         </canvas>
-        <div style="position: absolute; display: flex; align-items: center; ">
+        <div class="menu">
             <div>
-                <button id ="resumeGame" style="width: 100px; visibility: hidden" onclick="resumeGame()">Resume</button><p/>
-                <button id="newGame" style="width: 100px" onclick="startNewGame()">Start</button><p />
+                <button id ="resumeGame" style="visibility: hidden" onclick="resumeGame()">Resume</button><p/>
+                <button id="newGame" onclick="startNewGame()">Start</button><p />
             </div>
         </div>
     </div>

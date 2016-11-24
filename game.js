@@ -144,7 +144,7 @@ function Game(canvasElement) {
 
         var map = generateAliensMap();
         var lastHeight = 10;
-        var y = 15;
+        var y = 30;
         map.forEach(function(elem) {
             y = y + lastHeight + 10;
             var step = gameContext.canvasWidth / (elem.length + 1);
@@ -244,6 +244,8 @@ function Game(canvasElement) {
         gameContext.ctx.fillText("Score: " + player.score, 10, 26);
         gameContext.ctx.fillText("Lives: " + player.lives, 150, 26);
         gameContext.ctx.fillText("Level: " + player.level, 250, 26);
+
+        gameContext.ctx.fillRect(5, 35, gameContext.canvasWidth - 10, 1);
 
         if (self.isGameOver || self.isGamePause)
             return;
