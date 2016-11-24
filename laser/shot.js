@@ -8,7 +8,7 @@ Shot.behaviour = new ShotBehaviour();
 function Shot(gameContext, x, y) {
 
     Glyph.call(this, gameContext, [x, y], [Shot.width, Shot.height]);
-    this.dy = 4;
+    this.dy = 10;
 
     this.currentSprite = new Sprite(gameContext.ctx,
             "laserRed16.png",

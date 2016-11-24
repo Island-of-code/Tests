@@ -19,7 +19,7 @@ function Game(canvasElement) {
     ctx.webkitImageSmoothingEnabled = false;
     ctx.msImageSmoothingEnabled = false;
     ctx.imageSmoothingEnabled = false;
-    ctx.font = "normal 16pt Arial";
+    ctx.font = "normal 16pt Century Gothic";
 
     var backgroundPattern = ctx.createPattern(resourceHelper.get("darkPurple.png"), "repeat");
     var gameContext = new GameContext(ctx);;
@@ -102,7 +102,7 @@ function Game(canvasElement) {
         case 3:
             return new Alien(gameContext, [x, y], [40, 33], { name: "enemyGreen3.png" });
         case 4:
-            return new Alien(gameContext, [x, y], [35, 30], { name: "enemyGreen5.png" });
+            return new Alien(gameContext, [x, y], [30, 26], { name: "enemyGreen5.png" });
         case 5:
             return new Alien(gameContext, [x, y], [30, 27], { name: "enemyRed1.png" });
 
@@ -111,20 +111,21 @@ function Game(canvasElement) {
         }
     }
 
-    function generateRandomNumber(max) {
+    function generateRandomNumber(min, max) {
 
-        var number = Math.floor((Math.random() * 10) + 1);
-        while (number > max || number === 0)
-            number = Math.floor((Math.random() * 10) + 1);
+        var number = Math.floor((Math.random() * 100) + 1);
+        while (number < min || number > max || number === 0)
+            number = Math.floor((Math.random() * 100) + 1);
         return number;
     }
 
     function generateAliensMap() {
+
         var result = [];
         for (var i = 0; i < 5; i++) {
-            var alienType = generateRandomNumber(5);
+            var alienType = generateRandomNumber(1, 5);
             var row = [];
-            for (var j = 0; j < generateRandomNumber(7); j++) {
+            for (var j = 0; j < generateRandomNumber(4, 13); j++) {
                 row.push(alienType);
             }
             result.push(row);
@@ -133,6 +134,7 @@ function Game(canvasElement) {
     }
 
     function startNextLevel() {
+
         player.level++;
         clearEnemies();
         addAliens();
@@ -144,16 +146,12 @@ function Game(canvasElement) {
         var lastHeight = 10;
         var y = 15;
         map.forEach(function(elem) {
-
             y = y + lastHeight + 10;
             var step = gameContext.canvasWidth / (elem.length + 1);
             var x = step;
-
             elem.forEach(function(item) {
-
-                var alien = createAlienByType(item, 0, y); //new AlienT1(gameContext, x - (AlienT1.width / 2), y);
+                var alien = createAlienByType(item, 0, y);
                 alien.x = x - (alien.width / 2);
-
                 alien.onDestroyEvent = function() {
                     player.score += 10;
                     if (glyphsTree.aliens.every(item => item.isDeleted)) {
@@ -244,8 +242,8 @@ function Game(canvasElement) {
         gameContext.ctx.fillText(fps + " fps", gameContext.canvasWidth - 70, 26);
 
         gameContext.ctx.fillText("Score: " + player.score, 10, 26);
-        gameContext.ctx.fillText("Lives: " + player.lives, 120, 26);
-        gameContext.ctx.fillText("Level: " + player.level, 230, 26);
+        gameContext.ctx.fillText("Lives: " + player.lives, 150, 26);
+        gameContext.ctx.fillText("Level: " + player.level, 250, 26);
 
         if (self.isGameOver || self.isGamePause)
             return;

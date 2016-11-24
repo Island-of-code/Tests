@@ -7,7 +7,7 @@ function AlienShotBehaviour() {
 
 AlienShotBehaviour.prototype.update = function (gameContext, alienShot) {
 
-    alienShot.y += 1;
+    alienShot.y += 3;
     if (alienShot.y > gameContext.canvasHeight + 30) {
         alienShot.delete();
         
