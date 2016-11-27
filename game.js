@@ -134,22 +134,14 @@ function Game(canvasElement) {
             throw new Error("Alien type is bad");
         }
     }
-
-    function generateRandomNumber(min, max) {
-
-        var number = Math.floor((Math.random() * 100) + 1);
-        while (number < min || number > max || number === 0)
-            number = Math.floor((Math.random() * 100) + 1);
-        return number;
-    }
-
+    
     function generateAliensMap() {
 
         var result = [];
         for (var i = 0; i < 5; i++) {
-            var alienType = generateRandomNumber(1, 5);
+            var alienType = randomHelper.integer(1, 5);
             var row = [];
-            for (var j = 0; j < generateRandomNumber(4, 13); j++) {
+            for (var j = 0; j < randomHelper.integer(4, 13) ; j++) {
                 row.push(alienType);
             }
             result.push(row);

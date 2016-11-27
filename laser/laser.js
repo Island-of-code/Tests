@@ -20,7 +20,10 @@ function Laser(gameContext) {
     this.lastShotTime = Date.now();
     this._moveFrames = [0, 1];
     this._fixFrames = [0];
-    
+    this._dx = 0;
+    this._dy = 0;
+
+
     this.currentSprite = new Sprite(ctx,
             "playerShip3_green_small.png",
             [0, 0],
@@ -45,9 +48,24 @@ function Laser(gameContext) {
         Laser.behaviour.update(gameContext, self);
     }
 
+    this.movingSpeed = 2;
+
     this.update = function (dt) {
 
-       this.currentSprite.update(dt);
+        if (this._dx > 0) {
+            this.x += this.movingSpeed;
+            this._dx -= this.movingSpeed;
+        }
+        if (this._dx < 0) {
+            this.x -= this.movingSpeed;
+            this._dx += this.movingSpeed;
+        }
+
+        this.currentSprite.update(dt);
+    }
+
+    this.setMovingX = function (deltaX) {
+        this._dx = deltaX;
     }
 
     this.explosion = function() {

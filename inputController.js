@@ -20,7 +20,7 @@ var inputController = (function() {
             break;
         case 38:
             key = "UP";
-            input.shot = true;
+            input.upDown = true;
             break;
         case 39:
             key = "RIGHT";
@@ -55,7 +55,7 @@ var inputController = (function() {
             break;
         case 38:
             key = "UP";
-            input.shot = false;
+            input.upDown = false;
             break;
         case 39:
             key = "RIGHT";

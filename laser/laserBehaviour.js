@@ -6,15 +6,20 @@ function LaserBehaviour() {
 
 LaserBehaviour.prototype.update = function (gameContext, laser) {
 
-    if (inputController.event.laser.dx && laser.x > -10 && laser.x < gameContext.canvasWidth + 10 ) {
-        laser.x += inputController.event.laser.dx;
-        laser.setMovingState(true);
-    }
-    else
-        laser.setMovingState(false);
+    var dx = inputController.event.laser.dx;
+    if (laser.x + dx < -20)
+        dx = 0;
+    if (laser.x + dx > gameContext.canvasWidth)
+        dx = 0;
+
+      laser.setMovingX(dx);
+       // laser.setMovingState(true);
+    
+    //else
+       // laser.setMovingState(false);
 
 
-    if (inputController.event.shot) {
+    if (inputController.event.upDown) {
 
         if ((Date.now() - laser.lastShotTime) > 500) {
 

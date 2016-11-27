@@ -5,7 +5,7 @@ function AlienGroupeBehaviour(gameContext) {
     this._gameContext = gameContext;
 
     this.lastMovePauseTimeY = 5000;
-    this.lastMovePauseTimeX = 5000;
+    this.lastMovePauseTimeX = 1000;
 
     this.lastMoveTimeY = Date.now();
     this.lastMoveTimeX = Date.now();
@@ -55,7 +55,7 @@ AlienGroupeBehaviour.prototype.update = function(dt) {
         });
 
         this.lastMoveTimeX = now;
-        this.lastMovePauseTimeX = randomHelper.integer(1000, 4000);
+        this.lastMovePauseTimeX = randomHelper.integer(500, 2000);
     }
 
     
