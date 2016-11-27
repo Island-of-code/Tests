@@ -13,7 +13,11 @@ function Alien(gameContext, pos, size, spriteOptions) {
     this.lastMoveTimeX = Date.now();
     this._dx = 0;
     this._dy = 0;
-    
+    this._shotSoundElem = resourceHelper.getSound('shotSound');
+    this._explosionSoundElem = resourceHelper.getSound('explosionSound');
+    this._movingSoundElem = resourceHelper.getSound('alienMovingSound');
+
+
     this.currentSprite = new Sprite(gameContext.ctx,
             spriteOptions.name,
             [0, 0],
@@ -42,12 +46,25 @@ Alien.prototype.handleInput = function () {
 
 Alien.prototype.setMovingY = function (deltaY) {
     this._dy = deltaY;
+
 }
 
 Alien.prototype.setMovingX = function (deltaX) {
     this._dx = deltaX;
+    this.playMovingSound();
 }
 
+Alien.prototype.playShotSound = function () {
+    this._shotSoundElem.play();
+}
+
+Alien.prototype.playExplosionSound = function () {
+    this._explosionSoundElem.play();
+}
+
+Alien.prototype.playMovingSound = function () {
+    this._movingSoundElem.play();
+}
 
 Alien.prototype.explosion = function () {
     this.currentSprite = this.explosionSprite;
@@ -58,6 +75,7 @@ Alien.prototype.explosion = function () {
             self.onDestroyEvent();
     }
     this.frames = this.explosionSprite.frames;
+    this.playExplosionSound();
 }
 
 Alien.prototype.update = function (dt) {

@@ -2,6 +2,7 @@
 
 function LaserBehaviour() {
 
+
 }
 
 LaserBehaviour.prototype.update = function (gameContext, laser) {
@@ -25,6 +26,7 @@ LaserBehaviour.prototype.update = function (gameContext, laser) {
 
             gameContext.glyphsTree.shots.push(new Shot(gameContext, laser.x + (laser.width / 2) - 1, laser.y -2 ));
             laser.lastShotTime = Date.now();
+            laser.playShotSound();
         }
     }
 }

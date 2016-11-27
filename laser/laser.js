@@ -22,6 +22,10 @@ function Laser(gameContext) {
     this._fixFrames = [0];
     this._dx = 0;
     this._dy = 0;
+    this._shotSoundElem = resourceHelper.getSound('shotSound');
+    this._explosionSoundElem = resourceHelper.getSound('explosionLaserSound');
+
+    this.movingSpeed = 2;
 
 
     this.currentSprite = new Sprite(ctx,
@@ -48,7 +52,14 @@ function Laser(gameContext) {
         Laser.behaviour.update(gameContext, self);
     }
 
-    this.movingSpeed = 2;
+    this.playShotSound = function()
+    {
+        this._shotSoundElem.play();
+    }
+
+    this.playExplosionSound = function () {
+        this._explosionSoundElem.play();
+    }
 
     this.update = function (dt) {
 
@@ -70,6 +81,7 @@ function Laser(gameContext) {
 
     this.explosion = function() {
 
+        
         this.currentSprite = this.explosionSprite;
         var self = this;
         this.explosionSprite.onDoneEvent = function () {
@@ -79,6 +91,7 @@ function Laser(gameContext) {
         }
 
         this.frames = this.explosionSprite.frames;
+        this.playExplosionSound();
     }
 
     this.setMovingState = function(state) {

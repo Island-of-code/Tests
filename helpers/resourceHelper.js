@@ -35,6 +35,11 @@ var resourceHelper = (function () {
         }
     }
 
+    function getSound(name) {
+        
+        return document.getElementById(name);
+    }
+
     function get(url) {
         return resourceCache[url];
     }
@@ -57,6 +62,7 @@ var resourceHelper = (function () {
     return { 
         load: load,
         get: get,
+        getSound: getSound,
         onReady: onReady,
         isReady: isReady
     };

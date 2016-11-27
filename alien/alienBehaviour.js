@@ -2,6 +2,8 @@
 
 function AlienBehaviour() {
 
+    
+
 }
 
 AlienBehaviour.prototype.update = function (gameContext, alien) {
